@@ -4,6 +4,7 @@ using UnityEngine.UI; //test
 public class InputHandler : MonoBehaviour {
 
     //public variables
+	public float interpolationScale = 3f;
     public Text debugText; //test
 
     //public properties
@@ -27,12 +28,15 @@ public class InputHandler : MonoBehaviour {
 	void Update ()
 	{
 #if UNITY_EDITOR
-        cursorPos = cam.ScreenToWorldPoint(Input.mousePosition); //mouse position in world coordinates
+		cursorPos = cam.ScreenToWorldPoint(Input.mousePosition); //mouse position in world coordinates
 #elif UNITY_ANDROID
 		HandleTouch();
 #endif
         //test
-        debugText.text = onStick.ToString();
+		if (Debug.isDebugBuild)
+		{ 
+			debugText.text = "onStick = " + onStick + "\n";
+		}
 	}
 		
 #if UNITY_EDITOR //mouse input handles here
@@ -60,7 +64,7 @@ public class InputHandler : MonoBehaviour {
         if (Input.touchCount > 0) //if there is at least one touch
         {
             currTouch = Input.GetTouch(0);    
-            cursorPos = cam.ScreenToWorldPoint(currTouch.position); //where you've touched
+			cursorPos = cam.ScreenToWorldPoint(currTouch.position + interpolationScale * currTouch.deltaPosition); //where you've touched
 
             if (currTouch.phase == TouchPhase.Began) //if touch hes just started
             {

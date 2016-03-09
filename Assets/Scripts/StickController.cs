@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using UnityEngine.UI; //test
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(InputHandler))]
@@ -7,6 +7,7 @@ using System.Collections;
 public class StickController : MonoBehaviour {
 
     //public variables
+	public Text debugText;
 
     //private variables
     private Rigidbody2D rb;
@@ -35,10 +36,17 @@ public class StickController : MonoBehaviour {
             //---test---//
             Debug.DrawRay(centerPos, positionVector);
         }
+		if (Debug.isDebugBuild) 
+		{ 
+			debugText.text = string.Format ("angle = {0}\nposition vector = {1:0.00},{2:0.00}\nfps = {3:00}\nfsps = {4:00}", angle, positionVector.x, positionVector.y, 1 / Time.deltaTime, 1 / Time.fixedDeltaTime);
+		}
 	}
 
     void FixedUpdate()
     {
-        if (iH.onStick) { rb.MoveRotation(angle); } //rotation
+        if (iH.onStick) 
+		{ 
+			rb.MoveRotation(angle); 
+		} //rotation
     }
 }
