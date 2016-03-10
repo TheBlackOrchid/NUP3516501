@@ -4,7 +4,8 @@ using UnityEngine.UI; //test
 public class InputHandler : MonoBehaviour {
 
     //public variables
-	public float interpolationScale = 3f;
+	public float minSqrDelta = 1f;//minimum touch delta position for zeroing interpolation vector
+	public float interpolationScale = 3f; //scale of interpolation vector. grater the value - better result, but stick is more mad.
     public Text debugText; //test
 
     //public properties
@@ -16,6 +17,7 @@ public class InputHandler : MonoBehaviour {
 #if UNITY_EDITOR
 #elif UNITY_ANDROID
     private Touch currTouch;
+	private Vector2 intepolationVector;
 #endif
 
     // Use this for initialization
@@ -32,11 +34,6 @@ public class InputHandler : MonoBehaviour {
 #elif UNITY_ANDROID
 		HandleTouch();
 #endif
-        //test
-		if (Debug.isDebugBuild)
-		{ 
-			debugText.text = "onStick = " + onStick + "\n";
-		}
 	}
 		
 #if UNITY_EDITOR //mouse input handles here
@@ -64,7 +61,15 @@ public class InputHandler : MonoBehaviour {
         if (Input.touchCount > 0) //if there is at least one touch
         {
             currTouch = Input.GetTouch(0);    
-			cursorPos = cam.ScreenToWorldPoint(currTouch.position + interpolationScale * currTouch.deltaPosition); //where you've touched
+			if (currTouch.deltaPosition.sqrMagnitude > minSqrDelta) { intepolationVector = interpolationScale * currTouch.deltaPosition; }
+			else { intepolationVector = Vector2.zero; }
+			cursorPos = cam.ScreenToWorldPoint (currTouch.position + intepolationVector); //where you've touched
+
+			//test
+			if (Debug.isDebugBuild)
+			{ 
+				debugText.text = string.Format("intepolation vector ={0}\ndelta position = {1}", intepolationVector, currTouch.deltaPosition.sqrMagnitude);
+			}
 
             if (currTouch.phase == TouchPhase.Began) //if touch hes just started
             {

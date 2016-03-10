@@ -1,12 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DebugTextController : MonoBehaviour {
-
-    private Text text;
-    private float deltaTime = 0;
-    private float fps;
-    private string fpsText;
+public class DebugEnabler : MonoBehaviour {
 
 	void Awake ()
     {
