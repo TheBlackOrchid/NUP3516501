@@ -21,22 +21,9 @@ public class Spawn : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		ballPool = new GameObject (); // creating ball pool
-		ballPool.name = "BallPool"; // naming it
-		ballPool.transform.position = Vector3.up * 10; // seting its position
-
-		//balls = new Transform[poolSize]; // creating new array of balls
-
-		for (int i = 0; i < poolSize; i++) // populating pool
-		{
-			currBall = (GameObject)Instantiate (ballPrefab); // new ball from prefab
-			currBall.transform.SetParent (ballPool.transform); // parenting to pool
-			currBall.transform.localPosition = Vector3.zero; // teleporting ball to pool's position
-			currBall.SetActive(false); // deactivating for now
-		}
-
+		CreatePool ("BallPool");
 		myTransform = transform;
-		currBall = null; // must be null for further actions (in case)
+		spriteRenderer = GetComponent<SpriteRenderer>();
 		currBallIndex = 0;
 	}
 	
@@ -59,27 +46,36 @@ public class Spawn : MonoBehaviour {
 		currBall.transform.rotation = myTransform.rotation;
 		currBallRb.angularVelocity = 0;
         currBallRb.velocity = Vector2.down * ballSpeed;
-        ColorChange();
+        ChangeColor();
 
         // cooldown
         yield return new WaitForSeconds(spawnRate);
 
 		// ready to go
-        canSpawn = true;
-
-		if (currBallIndex < poolSize - 1)
-		{
-			currBallIndex++;
-		}
-		else
-		{
-			currBallIndex = 0;
-		}
+		if (currBallIndex < poolSize - 1) { currBallIndex++; }
+		else { currBallIndex = 0; } // if ran out of balls - take the first
+		canSpawn = true;
     }
 
-    private void ColorChange() {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+	void CreatePool(string name)
+	{
+		ballPool = new GameObject (); // creating ball pool
+		ballPool.name = name; // naming it
+		ballPool.transform.position = Vector3.up * 10; // setting its position
 
+		for (int i = 0; i < poolSize; i++) // populating pool
+		{
+			currBall = (GameObject)Instantiate (ballPrefab); // new ball from prefab
+			currBall.transform.SetParent (ballPool.transform); // parenting to pool
+			currBall.transform.localPosition = Vector3.zero; // teleporting ball to pool's position
+			currBall.SetActive(false); // deactivating for now
+		}
+		currBall = null; // must be null for further actions (in case)
+	}
+
+    void ChangeColor() 
+	{
+		
     }
 
 }
