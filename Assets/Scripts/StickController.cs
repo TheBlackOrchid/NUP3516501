@@ -6,11 +6,11 @@ using UnityEngine.UI; //test
 
 public class StickController : MonoBehaviour {
 
-    //public variables
+    // public variables
 	public Text debugText;
 	public LineRenderer debugLine;
 
-    //private variables
+    // private variables
     private Rigidbody2D rb;
     private InputHandler iH;
     private Vector2 centerPos;

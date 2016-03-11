@@ -14,7 +14,6 @@ public class Spawn : MonoBehaviour {
 	private Transform[] balls;
 	private Transform myTransform;
     private Rigidbody2D currBallRb;
-    private SpriteRenderer spriteRenderer;
 	private int currBallIndex;
     private bool canSpawn = true;
 
@@ -23,7 +22,6 @@ public class Spawn : MonoBehaviour {
 	{
 		CreatePool ("BallPool");
 		myTransform = transform;
-		spriteRenderer = GetComponent<SpriteRenderer>();
 		currBallIndex = 0;
 	}
 	
@@ -46,7 +44,6 @@ public class Spawn : MonoBehaviour {
 		currBall.transform.rotation = myTransform.rotation;
 		currBallRb.angularVelocity = 0;
         currBallRb.velocity = Vector2.down * ballSpeed;
-        ChangeColor();
 
         // cooldown
         yield return new WaitForSeconds(spawnRate);
@@ -72,10 +69,4 @@ public class Spawn : MonoBehaviour {
 		}
 		currBall = null; // must be null for further actions (in case)
 	}
-
-    void ChangeColor() 
-	{
-		
-    }
-
 }

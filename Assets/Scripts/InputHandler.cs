@@ -3,16 +3,16 @@ using UnityEngine.UI; //test
 
 public class InputHandler : MonoBehaviour {
 
-    //public variables
+    // public variables
 	public float minSqrDelta = 1f;//minimum touch delta position for zeroing interpolation vector
 	public float interpolationScale = 3f; //scale of interpolation vector. grater the value - better result, but stick is more mad.
     public Text debugText; //test
 
-    //public properties
+    // public properties
     public Vector2 cursorPos { get; private set; }
 	public bool onStick { get; private set; }
 
-    //private variables
+    // private variables
     private Camera cam;
 #if UNITY_EDITOR
 #elif UNITY_ANDROID
