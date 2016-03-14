@@ -9,6 +9,7 @@ public class HoleController : MonoBehaviour {
 	public Transform target;
 	public Transform sideUp;
 	public Transform sideDown;
+	public float ballRadius = 0.64f;
 	public float holeSize = 1f; // the thinest distance between hole sides;
 	public float wallWidth = 0.6f; // aka x
 
@@ -17,25 +18,81 @@ public class HoleController : MonoBehaviour {
 	public float sideSeparation { get; private set; } // vertical distance between two sides
 
 	// private variables
-	private Vector3 targetOffset; // basically a half of target's height
-	private float angle; //angle of side down
+	private float targetOffset; // basically a half of target's height
+	private float targetHeight; // the height of target's sprite
+	private float targetAngle; // the euler z value of the target
+	private float sideUpAngle; // angle of side up
+	private float sideDownAngle; // angle of side down
+	private float lowerOptimalAngle; // two angles within which the hole should correct itself
+	private float upperOptimalAngle;
 
-	// Use this for initialization
-	void Start () 
+	void Start()
 	{
-		targetOffset = new Vector3 (0, target.gameObject.GetComponent<SpriteRenderer> ().bounds.extents.y);
-		targetPosition = target.position + targetOffset;
+		transform.localScale = Vector3.one; // whatever it was, it should be this
+		if (transform.position.x > 0) { // if it is on right side
+			transform.Translate (Vector3.right * wallWidth); // translate me one wall width to the right. it's because of pivot
+		}
+		targetHeight = target.gameObject.GetComponent<SpriteRenderer> ().bounds.extents.y;
+		ChangeOffset (target.rotation.eulerAngles.z); // initial correction
 	}
 
 	void Update () 
 	{
-		angle = Angle(sideDown.position - targetPosition);
+		sideDownAngle = Angle(sideDown.position - targetPosition);
+		sideUpAngle = Angle(sideUp.position - targetPosition);
+
+		lowerOptimalAngle = GetOptimalAngle (sideDownAngle);
+		upperOptimalAngle = GetOptimalAngle (sideUpAngle);
+
+		AdjustTargetOffset ();
 		AdjustHoleSize ();
+	}
+
+	void AdjustTargetOffset()
+	{
+		targetAngle = target.rotation.eulerAngles.z;
+
+		bool angleWithin = false;
+		if (lowerOptimalAngle < upperOptimalAngle) { // checking if the lower optimal angle is actually lower, not upper
+			if (targetAngle > lowerOptimalAngle && targetAngle < upperOptimalAngle) { // checking if the target angle is withing optimals
+				angleWithin = true;
+			} else {
+				angleWithin = false;
+			}
+		} else {
+			if (targetAngle > upperOptimalAngle && targetAngle < lowerOptimalAngle) { // same thing, different order
+				angleWithin = true;
+			} else {
+				angleWithin = false;
+			}
+		}
+
+		if (angleWithin) {
+			ChangeOffset (targetAngle); // correction
+		}
+	}
+
+	void ChangeOffset(float angle)
+	{
+		targetOffset = (targetHeight + ballRadius) / Mathf.Abs (Mathf.Cos (angle * Mathf.Deg2Rad)); // draw a triangle
+		targetPosition = target.position + Vector3.up * targetOffset;
+	}
+
+	float GetOptimalAngle(float angle)
+	{
+		if (angle >= 0 && angle < 90) {
+			return 360 + ((angle - 90) / 2); // trust me
+		} else if (angle < 0) {
+			return (angle + 90) / 2;
+		}
+		else {
+			return (angle - 90) / 2;
+		}
 	}
 
 	void AdjustHoleSize() // must be used in Update
 	{
-		sideSeparation = (holeSize / Mathf.Abs (Mathf.Cos (angle * Mathf.Deg2Rad))) + Mathf.Abs (sideUp.localScale.y / PosToScale); // don't ask why (better draw two right triangles)
+		sideSeparation = (holeSize / Mathf.Abs (Mathf.Cos (sideDownAngle * Mathf.Deg2Rad))) + Mathf.Abs (sideUp.localScale.y / PosToScale); // don't ask why (better draw two right triangles)
 	}	
 
 	public static float Angle(Vector3 vector) // parameter vector is a position vector
