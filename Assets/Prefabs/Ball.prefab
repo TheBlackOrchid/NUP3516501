@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 0}
+  liveCounter: 3
 --- !u!212 &21255586
 SpriteRenderer:
   m_ObjectHideFlags: 1

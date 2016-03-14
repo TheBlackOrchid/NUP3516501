@@ -401,11 +401,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 468130, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 468130, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.00000016292068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 468130, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: m_RootOrder
@@ -421,11 +421,15 @@ Prefab:
       objectReference: {fileID: 364237675}
     - target: {fileID: 468130, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 11415632, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: holeSize
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11415632, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
+      propertyPath: ballRadius
+      value: 0.32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
@@ -736,6 +740,10 @@ Prefab:
     - target: {fileID: 11415632, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
       propertyPath: holeSize
       value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11415632, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
+      propertyPath: ballRadius
+      value: 0.32
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
