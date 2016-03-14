@@ -9,11 +9,13 @@ public class Spawn : MonoBehaviour {
     public float spawnRate = 0.5f;
     public float ballSpeed;
 
+    private ScoreController scoreController;
 	private GameObject ballPool;
 	private GameObject currBall;
 	private Transform[] balls;
 	private Transform myTransform;
     private Rigidbody2D currBallRb;
+    private BallController currBallController;
 	private int currBallIndex;
     private bool canSpawn = true;
 
@@ -22,6 +24,7 @@ public class Spawn : MonoBehaviour {
 	{
 		CreatePool ("BallPool");
 		myTransform = transform;
+        scoreController = GetComponent<ScoreController>();
 		currBallIndex = 0;
 	}
 	
@@ -33,25 +36,27 @@ public class Spawn : MonoBehaviour {
 
     IEnumerator SpawnCoroutine()
     {
-		// initialization
+        // initialization
         canSpawn = false;
-		currBall = ballPool.transform.GetChild (currBallIndex).gameObject;
-		currBallRb = currBall.GetComponent<Rigidbody2D> ();
-		currBall.SetActive (true);
+        currBall = ballPool.transform.GetChild(currBallIndex).gameObject;
+        currBallController = currBall.GetComponent<BallController>();
+        currBallController.scoreController = scoreController;
+        currBallRb = currBall.GetComponent<Rigidbody2D>();
+        currBall.SetActive(true);
 
-		// transformation
-		currBall.transform.position = myTransform.position;
-		currBall.transform.rotation = myTransform.rotation;
-		currBallRb.angularVelocity = 0;
+        // transformation
+        currBall.transform.position = myTransform.position;
+        currBall.transform.rotation = myTransform.rotation;
+        currBallRb.angularVelocity = 0;
         currBallRb.velocity = Vector2.down * ballSpeed;
 
         // cooldown
         yield return new WaitForSeconds(spawnRate);
 
-		// ready to go
-		if (currBallIndex < poolSize - 1) { currBallIndex++; }
-		else { currBallIndex = 0; } // if ran out of balls - take the first
-		canSpawn = true;
+        // ready to go
+        if (currBallIndex < poolSize - 1) { currBallIndex++; } else { currBallIndex = 0; } // if ran out of balls - take the first
+        canSpawn = true;
+
     }
 
 	void CreatePool(string name)

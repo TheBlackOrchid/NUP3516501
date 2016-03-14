@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Stick
+  - HoleSide
+  - Ball
+  - Killer
+  - Counter
+  - Wall
   layers:
   - Default
   - TransparentFX
