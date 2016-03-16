@@ -169,11 +169,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65ffbf97fb4e52c4fbcccf901711eba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  wallController: {fileID: 0}
   sideUp: {fileID: 496232}
   sideDown: {fileID: 477676}
+  ballRadius: 0.64
   holeSize: 1.75
-  wallWidth: 0.9
 --- !u!114 &11465976
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,8 +10,9 @@ GameObject:
   - 4: {fileID: 463536}
   - 212: {fileID: 21270660}
   - 61: {fileID: 6180530}
+  - 114: {fileID: 11470140}
   m_Layer: 0
-  m_Name: rect
+  m_Name: Filler
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 188032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.25, y: -2.59, z: 0}
-  m_LocalScale: {x: 1, y: 8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,9 +41,25 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.32, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 0.64}
+  m_Size: {x: 0.64, y: 0.64}
+--- !u!114 &11470140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87cbe125905e814dabe9f7dc53af63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallController: {fileID: 0}
+  upperHole: {fileID: 0}
+  lowerHole: {fileID: 0}
+  position: 0
+  offset: 0.001
 --- !u!212 &21270660
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -69,7 +86,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6941fcb416d03d14b834f1c0a925ba78, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dd85fcbfa9b4b2d4b9fe7d92739e4b7b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -79,7 +96,28 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dd85fcbfa9b4b2d4b9fe7d92739e4b7b,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Filler
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: pos
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188032}

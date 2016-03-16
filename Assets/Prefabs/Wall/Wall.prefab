@@ -43,8 +43,8 @@ MonoBehaviour:
   fillerPrefab: {fileID: 188032, guid: 4a371789c5c0c2948aaf9ae451b94d46, type: 2}
   target: {fileID: 0}
   wallWidth: 0.6
-  wallHeight: 10
-  wallActiveHeight: 7
+  wallHeight: 11
+  wallActiveHeight: 10
   holeCount: 2
 --- !u!1001 &100100000
 Prefab:
@@ -61,6 +61,14 @@ Prefab:
       propertyPath: fillerPrefab
       value: 
       objectReference: {fileID: 188032, guid: 4a371789c5c0c2948aaf9ae451b94d46, type: 2}
+    - target: {fileID: 0}
+      propertyPath: wallHeight
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallActiveHeight
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 158922}
