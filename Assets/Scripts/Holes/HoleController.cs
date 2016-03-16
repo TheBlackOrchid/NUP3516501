@@ -6,18 +6,19 @@ public class HoleController : MonoBehaviour {
 	public const float PosToScale = 1.561754f;
 
 	// public variables
-	public Transform target;
+	public WallController wallController;
 	public Transform sideUp;
 	public Transform sideDown;
 	public float ballRadius = 0.64f;
 	public float holeSize = 1f; // the thinest distance between hole sides;
-	public float wallWidth = 0.6f; // aka x
 
 	// public properties
 	public Vector3 targetPosition { get; private set; } // ...with our offset;
+	public float wallWidth { get; private set; } // aka x
 	public float sideSeparation { get; private set; } // vertical distance between two sides
 
 	// private variables
+	private Transform target;
 	private float targetOffset; // basically a half of target's height
 	private float targetHeight; // the height of target's sprite
 	private float targetAngle; // the euler z value of the target
@@ -28,6 +29,8 @@ public class HoleController : MonoBehaviour {
 
 	void Start()
 	{
+		wallWidth = wallController.wallWidth;
+		target = wallController.target;
 		transform.localScale = Vector3.one; // whatever it was, it should be this
 		if (transform.position.x > 0) { // if it is on right side
 			transform.Translate (Vector3.right * wallWidth); // translate me one wall width to the right. it's because of pivot
