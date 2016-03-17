@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class BallController : MonoBehaviour {
 
     public ScoreController scoreController;
-    public int liveCounter = 3;
-    public bool available { get; set; }
+	public float lifeSpan = 5;
+    public int lives = 3;
 
+	private int lifeCounter;
+	private WaitForSeconds lifeSpanWFS;
 
     void Start() {
-        available = true;
+		lifeCounter = lives;
+		lifeSpanWFS = new WaitForSeconds (lifeSpan);
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
@@ -19,15 +23,30 @@ public class BallController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Wall")) {
-            liveCounter--;
+            lifeCounter--;
             CheckLives();
         }
     }
 
+	void OnEnable() {
+		Debug.Log (name + " onEnable");
+		StartCoroutine (Live ());
+	}
+
+	void OnDisable() {
+		StopAllCoroutines ();
+		lifeCounter = lives;
+	}
+
+	IEnumerator Live()
+	{
+		yield return lifeSpanWFS;
+		gameObject.SetActive (false);
+	}
 
     void CheckLives() {
-        if (liveCounter <= 0) {
-            available = true;
+		if (lifeCounter <= 0) {
+			this.gameObject.SetActive (false);
         }
     }
 

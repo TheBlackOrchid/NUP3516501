@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11415632}
   m_Layer: 0
   m_Name: Hole
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,8 +172,9 @@ MonoBehaviour:
   wallController: {fileID: 0}
   sideUp: {fileID: 496232}
   sideDown: {fileID: 477676}
+  useOptimals: 0
   ballRadius: 0.64
-  holeSize: 1.75
+  holeSize: 2
 --- !u!114 &11465976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -271,6 +272,18 @@ Prefab:
       propertyPath: side
       value: 
       objectReference: {fileID: 477676}
+    - target: {fileID: 0}
+      propertyPath: useOptimals
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: holeSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123464}

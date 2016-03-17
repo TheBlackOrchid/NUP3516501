@@ -348,7 +348,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -542,6 +542,10 @@ Prefab:
       propertyPath: holeCount
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 158922, guid: 598c8205377e1444fa7a9d64addc6f9c, type: 2}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 598c8205377e1444fa7a9d64addc6f9c, type: 2}
   m_IsPrefabParent: 0
@@ -569,13 +573,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1508466224}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5195e49c1890a6c4ab19607fa45394c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 0}
-  liveCounter: 3
+  lifeSpan: 5
+  lives: 3
 --- !u!61 &1508466226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -842,8 +847,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 105222, guid: 0c39bafdeec9076448fa982d72c50658, type: 2}
   spawnEnabled: 1
-  poolSize: 5
-  spawnRate: 2
+  poolSize: 1
+  spawnRate: 4
   ballSpeed: 10
 --- !u!4 &1765944570
 Transform:

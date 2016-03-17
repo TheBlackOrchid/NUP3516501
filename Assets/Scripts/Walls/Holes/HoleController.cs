@@ -9,6 +9,7 @@ public class HoleController : MonoBehaviour {
 	public WallController wallController;
 	public Transform sideUp;
 	public Transform sideDown;
+	public bool useOptimals; // whether to use optimal angles
 	public float ballRadius = 0.64f;
 	public float holeSize = 1f; // the thinest distance between hole sides;
 
@@ -52,14 +53,16 @@ public class HoleController : MonoBehaviour {
 
 	void Update () 
 	{
-		if (targetPosition != prevTargetPosition
-		    || sideUp.position != prevSideUpPosition
-		    || sideDown.position != prevSideDownPosition) {
+		if (targetPosition != prevTargetPosition 
+			|| sideUp.position != prevSideUpPosition
+			|| sideDown.position != prevSideDownPosition) {
 			sideDownAngle = Angle (sideDown.position - targetPosition);
 			sideUpAngle = Angle (sideUp.position - targetPosition);
 
-			lowerOptimalAngle = GetOptimalAngle (sideDownAngle);
-			upperOptimalAngle = GetOptimalAngle (sideUpAngle);
+			if (useOptimals) {
+				lowerOptimalAngle = GetOptimalAngle (sideDownAngle);
+				upperOptimalAngle = GetOptimalAngle (sideUpAngle);
+			}
 		}
 		AdjustTargetOffset ();
 		AdjustHoleSize ();
@@ -72,18 +75,22 @@ public class HoleController : MonoBehaviour {
 		targetAngle = target.rotation.eulerAngles.z;
 		if (targetAngle != prevTargetAngle) {
 			bool angleWithin = false;
-			if (lowerOptimalAngle < upperOptimalAngle) { // checking if the lower optimal angle is actually lower, not upper
-				if (targetAngle > lowerOptimalAngle && targetAngle < upperOptimalAngle) { // checking if the target angle is withing optimals
-					angleWithin = true;
+			if (useOptimals) {
+				if (lowerOptimalAngle < upperOptimalAngle) { // checking if the lower optimal angle is actually lower, not upper
+					if (targetAngle > lowerOptimalAngle && targetAngle < upperOptimalAngle) { // checking if the target angle is withing optimals
+						angleWithin = true;
+					} else {
+						angleWithin = false;
+					}
 				} else {
-					angleWithin = false;
+					if (targetAngle > upperOptimalAngle && targetAngle < lowerOptimalAngle) { // same thing, different order
+						angleWithin = true;
+					} else {
+						angleWithin = false;
+					}
 				}
 			} else {
-				if (targetAngle > upperOptimalAngle && targetAngle < lowerOptimalAngle) { // same thing, different order
-					angleWithin = true;
-				} else {
-					angleWithin = false;
-				}
+				angleWithin = true;
 			}
 			if (angleWithin) {
 				ChangeOffset (targetAngle); // correction
@@ -93,7 +100,11 @@ public class HoleController : MonoBehaviour {
 
 	void ChangeOffset(float angle)
 	{
-		targetOffset = (targetHeight + ballRadius) / Mathf.Abs (Mathf.Cos (angle * Mathf.Deg2Rad)); // draw a triangle
+		if (useOptimals) {
+			targetOffset = (targetHeight + ballRadius) / Mathf.Abs (Mathf.Cos (angle * Mathf.Deg2Rad)); // draw a triangle
+		} else {
+			targetOffset = targetHeight;
+		}
 		targetPosition = target.position + Vector3.up * targetOffset;
 	}
 

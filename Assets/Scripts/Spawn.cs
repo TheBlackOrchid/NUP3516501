@@ -22,9 +22,9 @@ public class Spawn : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		scoreController = GetComponent<ScoreController>();
 		CreatePool ("BallPool");
 		myTransform = transform;
-        scoreController = GetComponent<ScoreController>();
 		currBallIndex = 0;
 	}
 	
@@ -39,19 +39,20 @@ public class Spawn : MonoBehaviour {
         // initialization
         canSpawn = false;
         currBall = ballPool.transform.GetChild(currBallIndex).gameObject;
-        currBallController = currBall.GetComponent<BallController>();
-        currBallController.scoreController = scoreController;
-        currBallRb = currBall.GetComponent<Rigidbody2D>();
-        currBall.SetActive(true);
 
-        // transformation
-        currBall.transform.position = myTransform.position;
-        currBall.transform.rotation = myTransform.rotation;
-        currBallRb.angularVelocity = 0;
-        currBallRb.velocity = Vector2.down * ballSpeed;
+		if (!currBall.activeInHierarchy) {
+			currBallRb = currBall.GetComponent<Rigidbody2D> ();
+			currBall.SetActive (true);
 
-        // cooldown
-        yield return new WaitForSeconds(spawnRate);
+			// transformation
+			currBall.transform.position = myTransform.position;
+			currBall.transform.rotation = myTransform.rotation;
+			currBallRb.angularVelocity = 0;
+			currBallRb.velocity = Vector2.down * ballSpeed;
+
+			// cooldown
+			yield return new WaitForSeconds (spawnRate);
+		}
 
         // ready to go
         if (currBallIndex < poolSize - 1) { currBallIndex++; } else { currBallIndex = 0; } // if ran out of balls - take the first
@@ -70,6 +71,8 @@ public class Spawn : MonoBehaviour {
 			currBall = (GameObject)Instantiate (ballPrefab); // new ball from prefab
 			currBall.transform.SetParent (ballPool.transform); // parenting to pool
 			currBall.transform.localPosition = Vector3.zero; // teleporting ball to pool's position
+			currBallController = currBall.GetComponent<BallController>();
+			currBallController.scoreController = scoreController;
 			currBall.SetActive(false); // deactivating for now
 		}
 		currBall = null; // must be null for further actions (in case)
