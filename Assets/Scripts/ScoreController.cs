@@ -22,7 +22,6 @@ public class ScoreController : MonoBehaviour {
 	{
 		score = 0;
 		SetText ();
-		Debug.Log ("Wasted");
 	}
 
 	void SetText() {

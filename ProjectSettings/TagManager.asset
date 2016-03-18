@@ -10,6 +10,7 @@ TagManager:
   - Killer
   - Counter
   - Wall
+  - StickHandle
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - 
   - 
   - Ball
-  - 
-  - 
+  - Stick
+  - StickHandle
   - 
   - 
   - 
