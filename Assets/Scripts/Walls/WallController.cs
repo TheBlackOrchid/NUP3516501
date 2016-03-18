@@ -17,16 +17,23 @@ public struct HeightRange {
 
 public class WallController : MonoBehaviour {
 
-	[Space(10)]
+	//[Space(10)]
+	[Header("Prefabs")]
 	public GameObject holePrefab;
 	public GameObject fillerPrefab;
-	[Space(10)]
+
+	//[Space(10)]
+	[Header("Target")]
 	public Transform target;
-	[Space(10)]
+
+	//[Space(10)]
+	[Header("Wall parameters")]
 	public float wallWidth = 0.6f; // actual width of the wall
 	public float wallHeight = 15f; // actual height of the wall
 	public float wallActiveHeight = 10f; // the height that is available for the holes
-	[Space(10)]
+
+	//[Space(10)]
+	[Header("Holes parameters")]
 	public int holeCount = 2;
 
 	private Transform myTransform;
@@ -35,13 +42,17 @@ public class WallController : MonoBehaviour {
 	private GameObject currSegment;
 	private HeightRange activeRange;
 	private HeightRange[] segments;
+	private float horScreenEdge;
+	private int xDir;
 
 	// Use this for initialization
 	void Start ()
 	{
 		myTransform = transform;
+		xDir = (int)Mathf.Sign (myTransform.position.x);
 		activeRange = new HeightRange (wallHeight / 2, (wallHeight / 2) - wallActiveHeight); // the range representation of activeHeight
 
+		StickToSide ();
 		CreateWall ();
 		DevideIntoSegments ();
 		AdjustHolePosition ();
@@ -58,6 +69,12 @@ public class WallController : MonoBehaviour {
 			hC = holes [1].GetComponent<HoleController> ();
 			Debug.DrawRay (new Vector3 (myTransform.position.x, hC.holeExtent.up), Vector3.down * hC.holeExtent.height, Color.magenta);
 		}
+	}
+
+	void StickToSide ()
+	{
+		horScreenEdge = Camera.main.ScreenToWorldPoint (Vector3.right * Screen.width).x;
+		myTransform.position = Vector3.right * (horScreenEdge - wallWidth) * xDir;
 	}
 
 	void CreateWall()

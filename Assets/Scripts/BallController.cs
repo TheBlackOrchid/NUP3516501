@@ -29,7 +29,7 @@ public class BallController : MonoBehaviour {
     }
 
 	void OnEnable() {
-		Debug.Log (name + " onEnable");
+		//Debug.Log (name + " onEnable");
 		StartCoroutine (Live ());
 	}
 

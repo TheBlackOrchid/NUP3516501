@@ -42,7 +42,7 @@ MonoBehaviour:
   holePrefab: {fileID: 123464, guid: 2d8691c4b88a4b440a6873a4a43117ae, type: 2}
   fillerPrefab: {fileID: 188032, guid: 4a371789c5c0c2948aaf9ae451b94d46, type: 2}
   target: {fileID: 0}
-  wallWidth: 0.6
+  wallWidth: 0.2
   wallHeight: 11
   wallActiveHeight: 10
   holeCount: 2
@@ -68,6 +68,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: wallActiveHeight
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: wallWidth
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
