@@ -19,21 +19,28 @@ public class WallController : MonoBehaviour {
 
 	//[Space(10)]
 	[Header("Prefabs")]
+	[Tooltip("The hole that will be created")]
 	public GameObject holePrefab;
+	[Tooltip("The filler that will be created")]
 	public GameObject fillerPrefab;
 
 	//[Space(10)]
 	[Header("Target")]
+	[Tooltip("The target at which all holes are facing")]
 	public Transform target;
 
 	//[Space(10)]
 	[Header("Wall parameters")]
+	[Tooltip("The width of the wall. Also how thick it appears on screen")]
 	public float wallWidth = 0.6f; // actual width of the wall
+	[Tooltip("The full height of the wall")]
 	public float wallHeight = 15f; // actual height of the wall
+	[Tooltip("The height that is available for the holes")]
 	public float wallActiveHeight = 10f; // the height that is available for the holes
 
 	//[Space(10)]
 	[Header("Holes parameters")]
+	[Tooltip("The number of the beast... ghrhm... I mean holes")]
 	public int holeCount = 2;
 
 	private Transform myTransform;
