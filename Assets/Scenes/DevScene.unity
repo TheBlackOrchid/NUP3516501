@@ -85,6 +85,63 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &3214738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 3214739}
+  - 61: {fileID: 3214741}
+  - 61: {fileID: 3214740}
+  m_Layer: 0
+  m_Name: TriggetKiller
+  m_TagString: Killer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &3214739
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3214738}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 89169309}
+  m_RootOrder: 1
+--- !u!61 &3214740
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3214738}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 7}
+  serializedVersion: 2
+  m_Size: {x: 7, y: 1}
+--- !u!61 &3214741
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 3214738}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -6}
+  serializedVersion: 2
+  m_Size: {x: 7, y: 1}
 --- !u!1 &22710489
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +221,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7982fcae095df84b8cd5bfd4f6c3711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &89169308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 89169309}
+  m_Layer: 0
+  m_Name: Triggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &89169309
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 89169308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1508466228}
+  - {fileID: 3214739}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!4 &364237675 stripped
 Transform:
   m_PrefabParentObject: {fileID: 472266, guid: bb7a377034b81d1429f21500eb39399a, type: 2}
@@ -559,7 +645,6 @@ GameObject:
   - 4: {fileID: 1508466228}
   - 61: {fileID: 1508466227}
   - 61: {fileID: 1508466226}
-  - 114: {fileID: 1508466225}
   m_Layer: 0
   m_Name: TriggetCounter
   m_TagString: Counter
@@ -567,20 +652,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!114 &1508466225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1508466224}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5195e49c1890a6c4ab19607fa45394c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreController: {fileID: 0}
-  lifeSpan: 5
-  lives: 3
 --- !u!61 &1508466226
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -619,8 +690,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 89169309}
+  m_RootOrder: 0
 --- !u!1 &1563474913
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +919,7 @@ MonoBehaviour:
   ballPrefab: {fileID: 105222, guid: 0c39bafdeec9076448fa982d72c50658, type: 2}
   spawnEnabled: 1
   poolSize: 1
-  spawnRate: 4
+  spawnRate: 2
   ballSpeed: 10
 --- !u!4 &1765944570
 Transform:

@@ -8,13 +8,25 @@ public class ScoreController : MonoBehaviour {
     private int score;
     
     void Start() {
-        score = -1;
+        score = 0;
         SetText();
     }
     
-    public void SetText() {
-        score++;
-        scoreText.text = score + "";
-    }
+	public void ScoreUp()
+	{
+		score++;
+		SetText ();
+	}
+
+	public void Wasted()
+	{
+		score = 0;
+		SetText ();
+		Debug.Log ("Wasted");
+	}
+
+	void SetText() {
+		scoreText.text = score + "";
+	}
 
 }
