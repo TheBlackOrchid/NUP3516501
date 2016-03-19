@@ -42,6 +42,8 @@ public class WallController : MonoBehaviour {
 	[Header("Holes parameters")]
 	[Tooltip("The number of the beast... ghrhm... I mean holes")]
 	public int holeCount = 2;
+	[Tooltip("The initial size of the holes")]
+	public float holeSize = 3;
 
 	private Transform myTransform;
 	private Transform[] holes;
@@ -49,6 +51,7 @@ public class WallController : MonoBehaviour {
 	private GameObject currSegment;
 	private HeightRange activeRange;
 	private HeightRange[] segments;
+	private HeightRange[] activeSegments;
 	private float horScreenEdge;
 	private int xDir;
 
@@ -63,19 +66,7 @@ public class WallController : MonoBehaviour {
 		CreateWall ();
 		DevideIntoSegments ();
 		AdjustHolePosition ();
-	}
-
-	void Update()
-	{
-		// test
-		if (Debug.isDebugBuild) { 
-			Debug.DrawRay (new Vector3 (myTransform.position.x, segments [0].up), Vector3.down * segments [0].height, Color.red);
-			Debug.DrawRay (new Vector3 (myTransform.position.x, segments [1].up), Vector3.down * segments [1].height, Color.green);
-			HoleController hC = holes [0].GetComponent<HoleController> ();
-			Debug.DrawRay (new Vector3 (myTransform.position.x, hC.holeExtent.up), Vector3.down * hC.holeExtent.height, Color.cyan);
-			hC = holes [1].GetComponent<HoleController> ();
-			Debug.DrawRay (new Vector3 (myTransform.position.x, hC.holeExtent.up), Vector3.down * hC.holeExtent.height, Color.magenta);
-		}
+		GetActiveHolesSegments ();
 	}
 
 	void StickToSide ()
@@ -139,6 +130,34 @@ public class WallController : MonoBehaviour {
 		for (int i = 0; i < holeCount; i++) 
 		{
 			holes [i].localPosition = Vector3.up * segments [i].center; // positioning the holes in center of their segments
+		}
+	}
+
+	void GetActiveHolesSegments()
+	{
+		activeSegments = new HeightRange[segments.Length];
+		for (int i = 0; i < segments.Length; i++)
+		{
+			HoleController hC = holes [i].GetComponent<HoleController> ();
+			float upper = hC.GetHoleHeighAtPosition (segments [i].up - (hC.holeSize * 0.8f));
+			float lower = hC.GetHoleHeighAtPosition (segments [i].down + (hC.holeSize * 0.8f));
+			activeSegments[i] = new HeightRange(segments[i].up - upper / 2, segments[i].down + lower / 2);
+		}
+	}
+
+	[ContextMenu("Stick to up")]
+	void MoveUp()
+	{
+		for (int i = 0; i < holeCount; i++) {
+			holes [i].position = new Vector3 (holes [i].position.x, activeSegments [i].up, holes [i].position.z);
+		}
+	}
+
+	[ContextMenu("Stick to down")]
+	void MoveDown()
+	{
+		for (int i = 0; i < holeCount; i++) {
+			holes [i].position = new Vector3 (holes [i].position.x, activeSegments [i].down, holes [i].position.z);
 		}
 	}
 }

@@ -13,8 +13,25 @@ GameObject:
   - 50: {fileID: 5067150}
   - 114: {fileID: 11480476}
   - 114: {fileID: 11438176}
-  m_Layer: 0
+  - 114: {fileID: 11490722}
+  m_Layer: 9
   m_Name: Stick
+  m_TagString: Stick
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &171194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 472556}
+  - 61: {fileID: 6171320}
+  m_Layer: 10
+  m_Name: Collider
   m_TagString: Stick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,9 +45,22 @@ Transform:
   m_GameObject: {fileID: 159438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -2.67, z: 0}
-  m_LocalScale: {x: 4.246833, y: 0.6, z: 1}
-  m_Children: []
+  m_LocalScale: {x: 3.8, y: 0.6, z: 1}
+  m_Children:
+  - {fileID: 472556}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &472556
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 472266}
   m_RootOrder: 0
 --- !u!50 &5067150
 Rigidbody2D:
@@ -62,7 +92,21 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.2799999, y: 0.63999987}
+  m_Size: {x: 1.28, y: 0.64}
+--- !u!61 &6171320
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171194}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.65, y: 2.75}
 --- !u!114 &11438176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1201bc2871093ce4db04d736b3ca97aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnRate: 10
+  returnThreshold: 0.01
   debugText: {fileID: 0}
   debugLine: {fileID: 0}
 --- !u!114 &11480476
@@ -87,9 +133,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b999bb7d6dc76e48bd20cda22e96aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSqrDelta: 2000
-  interpolationScale: 0
   debugText: {fileID: 0}
+--- !u!114 &11490722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!212 &21238164
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -117,7 +180,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 6941fcb416d03d14b834f1c0a925ba78, type: 3}
-  m_Color: {r: 0.6764706, g: 0.6764706, b: 0.6764706, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000

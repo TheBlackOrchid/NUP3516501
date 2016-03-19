@@ -37,6 +37,7 @@ public class InputHandler : MonoBehaviour {
 
 	void OnMouseUp()
 	{
+		cursorPos = (Vector2)transform.position + Vector2.right;
 		onStick = false;
 	}
 }

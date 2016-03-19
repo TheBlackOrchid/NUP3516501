@@ -42,6 +42,7 @@ public class HoleController : MonoBehaviour {
 	{
 		myTransform = transform;
 		wallWidth = wallController.wallWidth;
+		holeSize = wallController.holeSize;
 		target = wallController.target;
 		myTransform.localScale = Vector3.one; // whatever it was, it should be this
 		if (myTransform.position.x > 0) { // if it is on right side
@@ -126,6 +127,12 @@ public class HoleController : MonoBehaviour {
 			sideSeparation = (holeSize / Mathf.Abs (Mathf.Cos (sideDownAngle * Mathf.Deg2Rad))) + Mathf.Abs (sideUp.localScale.y / PosToScale); // don't ask why (better draw two right triangles)
 			holeExtent = new HeightRange(myTransform.position.y + sideSeparation / 2, myTransform.position.y - sideSeparation / 2);
 		}
+	}
+
+	public float GetHoleHeighAtPosition(float y)
+	{
+		return (holeSize / Mathf.Abs (Mathf.Cos (Angle (new Vector3(sideDown.position.x, y, sideDown.position.z) - targetPosition) * Mathf.Deg2Rad)))
+						+ Mathf.Abs (sideUp.localScale.y / PosToScale); // don't ask why (better draw two right triangles)
 	}
 
 	void UpdatePrevious()

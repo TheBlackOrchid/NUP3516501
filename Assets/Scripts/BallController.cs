@@ -5,7 +5,8 @@ public class BallController : MonoBehaviour {
 
     public ScoreController scoreController;
 
-	public Color[] conditionColors = new Color[4]; // colors to show the ball's condition in the ascending order
+	[Range(0f,1f)]
+	public float[] conditionAlpha = new float[4]; // colors to show the ball's condition in the ascending order
 	public float lifeSpan = 5;
     public int lives = 3;
 	public float hitCooldown = 0.5f;
@@ -13,6 +14,7 @@ public class BallController : MonoBehaviour {
 	private WaitForSeconds lifeSpanWFS;
 	private WaitForSeconds hitCooldownWFS;
 	private SpriteRenderer rend;
+	private Color currColor;
 	private bool canHit = true;
 	private int lifeCounter;
 
@@ -82,7 +84,9 @@ public class BallController : MonoBehaviour {
 
 	void ChangeColor(int index)
 	{
-		rend.color = conditionColors [index];
+		currColor = rend.color;
+		currColor.a = conditionAlpha [index];
+		rend.color = currColor;
 	}
 
 	void Kill()
