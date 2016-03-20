@@ -129,12 +129,6 @@ public class HoleController : MonoBehaviour {
 		}
 	}
 
-	public float GetHoleHeighAtPosition(float y)
-	{
-		return (holeSize / Mathf.Abs (Mathf.Cos (Angle (new Vector3(sideDown.position.x, y, sideDown.position.z) - targetPosition) * Mathf.Deg2Rad)))
-						+ Mathf.Abs (sideUp.localScale.y / PosToScale); // don't ask why (better draw two right triangles)
-	}
-
 	void UpdatePrevious()
 	{
 		prevTargetAngle = targetAngle;

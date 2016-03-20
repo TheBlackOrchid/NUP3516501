@@ -44,6 +44,8 @@ public class WallController : MonoBehaviour {
 	public int holeCount = 2;
 	[Tooltip("The initial size of the holes")]
 	public float holeSize = 3;
+	[Tooltip("The time while the hole moves")]
+	public float holeMoveTime = 0.5f;
 
 	private Transform myTransform;
 	private Transform[] holes;
@@ -52,7 +54,11 @@ public class WallController : MonoBehaviour {
 	private HeightRange activeRange;
 	private HeightRange[] segments;
 	private HeightRange[] activeSegments;
+	private WaitForEndOfFrame wfeof;
+	private Vector3[] endPositions; // for multiple holes
+	private Vector3 endPosition; // for single hole
 	private float horScreenEdge;
+	private float elapsedMoveTime;
 	private int xDir;
 
 	// Use this for initialization
@@ -61,6 +67,8 @@ public class WallController : MonoBehaviour {
 		myTransform = transform;
 		xDir = (int)Mathf.Sign (myTransform.position.x);
 		activeRange = new HeightRange (wallHeight / 2, (wallHeight / 2) - wallActiveHeight); // the range representation of activeHeight
+		wfeof = new WaitForEndOfFrame();
+		endPositions = new Vector3[holeCount];
 
 		StickToSide ();
 		CreateWall ();
@@ -138,26 +146,51 @@ public class WallController : MonoBehaviour {
 		activeSegments = new HeightRange[segments.Length];
 		for (int i = 0; i < segments.Length; i++)
 		{
-			HoleController hC = holes [i].GetComponent<HoleController> ();
-			float upper = hC.GetHoleHeighAtPosition (segments [i].up - (hC.holeSize * 0.8f));
-			float lower = hC.GetHoleHeighAtPosition (segments [i].down + (hC.holeSize * 0.8f));
-			activeSegments[i] = new HeightRange(segments[i].up - upper / 2, segments[i].down + lower / 2);
+			activeSegments[i] = new HeightRange(segments[i].up - ((holeSize / 2) + (segments[i].up * 0.15f)), segments[i].down + ((holeSize / 2) + (Mathf.Abs(segments[i].down) * 0.0625f)));
 		}
 	}
 
-	[ContextMenu("Stick to up")]
+	[ContextMenu("Move up")]
 	void MoveUp()
 	{
-		for (int i = 0; i < holeCount; i++) {
-			holes [i].position = new Vector3 (holes [i].position.x, activeSegments [i].up, holes [i].position.z);
+		endPosition = Vector3.right * holes [0].position.x + Vector3.up * activeSegments [0].up;
+		holes [0].position = endPosition;
+	}
+
+	public void MoveRandomMethod()
+	{
+		if (holeCount > 1) {
+			StopCoroutine (MoveRandomMultiple ());
+			StartCoroutine (MoveRandomMultiple ());
+		} else {
+			StopCoroutine (MoveRandomSingle ());
+			StartCoroutine (MoveRandomSingle ());			
 		}
 	}
 
-	[ContextMenu("Stick to down")]
-	void MoveDown()
+	IEnumerator MoveRandomMultiple()
 	{
+		elapsedMoveTime = 0;
 		for (int i = 0; i < holeCount; i++) {
-			holes [i].position = new Vector3 (holes [i].position.x, activeSegments [i].down, holes [i].position.z);
+			endPositions[i] = Vector3.right * holes [i].position.x + Vector3.up * Random.Range (activeSegments [i].up, activeSegments [i].down);
+		}
+		while (elapsedMoveTime < holeMoveTime) {
+			for (int i = 0; i < holeCount; i++) {
+				holes [i].position = Vector3.Lerp (holes [i].position, endPositions[i], elapsedMoveTime / holeMoveTime);
+			}
+			elapsedMoveTime += Time.deltaTime;
+			yield return wfeof;
+		}
+	}
+
+	IEnumerator MoveRandomSingle()
+	{
+		elapsedMoveTime = 0;
+		endPosition = Vector3.right * holes [0].position.x + Vector3.up * Random.Range (activeSegments [0].up, activeSegments [0].down);
+		while (elapsedMoveTime < holeMoveTime) {
+			holes [0].position = Vector3.Lerp (holes [0].position, endPosition, elapsedMoveTime / holeMoveTime);
+			elapsedMoveTime += Time.deltaTime;
+			yield return wfeof;
 		}
 	}
 }

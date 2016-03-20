@@ -30,11 +30,10 @@ public class BallController : MonoBehaviour {
 	{
 		if (collider.gameObject.CompareTag ("Counter")) {
 			scoreController.ScoreUp (); // lucky one
-			Kill (); // but you have to die
 		} else if (collider.gameObject.CompareTag ("Killer")) {
 			scoreController.Wasted ();
-			Kill (); // i'm sorry...
 		}
+		Kill (); // but you have to die anyway
     }
 
     void OnCollisionEnter2D(Collision2D collision)
