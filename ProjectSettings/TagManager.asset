@@ -10,7 +10,7 @@ TagManager:
   - Killer
   - Counter
   - Wall
-  - StickHandle
+  - GameManager
   layers:
   - Default
   - TransparentFX
