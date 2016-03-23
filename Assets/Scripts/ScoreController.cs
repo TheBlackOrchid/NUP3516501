@@ -21,7 +21,8 @@ public class ScoreController : MonoBehaviour
 		score++;
 		SetText();
 		gM.MoveHoles();
-        gM.IncreaseBallSpeed();
+        gM.CloseHoles();
+        gM.IncreaseDifficulty();
 	}
 
 	public void Wasted()
@@ -29,7 +30,8 @@ public class ScoreController : MonoBehaviour
 		score = 0;
 		SetText();
 		gM.MoveHoles();
-        gM.ResetBallSpeed();
+        gM.CloseHoles();
+        gM.ResetDifficulty();
         // check if score is more than x. if so - show wasted UI, else do nothing
 	}
 

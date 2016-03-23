@@ -359,7 +359,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1
+  m_Text: 0
 --- !u!222 &622350457
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -458,7 +458,10 @@ MonoBehaviour:
   - {fileID: 1520524681}
   - {fileID: 442925063}
   ballSpawn: {fileID: 1765944569}
-  ballSpeedStep: 0.5
+  ballSpeedStep: 0.1
+  ballSpawnRateStep: 0.01
+  minBallSpawnRate: 0.1
+  closeHoles: 1
 --- !u!4 &1104851061
 Transform:
   m_ObjectHideFlags: 0
