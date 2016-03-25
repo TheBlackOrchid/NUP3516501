@@ -10,7 +10,6 @@ public class StickController : MonoBehaviour
     // public variables
     public float returnRate;
     public float returnThreshold = 0.001f;
-    public Text debugText;
 
     // private variables
     private Rigidbody2D rb;
@@ -40,12 +39,6 @@ public class StickController : MonoBehaviour
         }
         else {
             ReturnToDefault();
-        }
-        if (Debug.isDebugBuild)
-        {
-            //---test---//
-            debugText.text = string.Format("angle = {0}\nposition vector = {1:0.00},{2:0.00}\nfps = {3:00}\nfsps = {4:00}",
-                                            angle, positionVector.x, positionVector.y, 1 / Time.deltaTime, 1 / Time.fixedDeltaTime);
         }
     }
 

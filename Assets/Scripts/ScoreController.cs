@@ -31,8 +31,7 @@ public class ScoreController : MonoBehaviour
 		SetText();
 		gM.MoveHoles();
         gM.CloseHoles();
-        gM.ResetDifficulty();
-        // check if score is more than x. if so - show wasted UI, else do nothing
+        gM.ResetDifficulty(); // check if score is more than x. if so - show wasted UI, else do nothing
 	}
 
 	void SetText()

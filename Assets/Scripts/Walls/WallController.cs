@@ -60,7 +60,12 @@ public class WallController : MonoBehaviour
     public float minHolePositionChange = 1;
     [Tooltip("The time while the hole closes")]
     public float holeCloseTime = 0.25f;
+    [Tooltip("The time while the hole closes")]
+    [Range(0, 1)]
+    public float holeCloseChance;
+    
 
+    public bool closed { get; private set; } // if there is only one hole and we don't want to close every hole in al of the walls
 
     private HoleController[] hCs;
     private Transform myTransform;
@@ -213,6 +218,19 @@ public class WallController : MonoBehaviour
         }
     }
 
+    public void OpenHole()
+    {
+        if (holeCount > 1)
+        {
+            Debug.Log("Not yet implemented");
+        }
+        else
+        {
+            StopCoroutine(OpenHoleSingle());
+            StartCoroutine(OpenHoleSingle());
+        }
+    }
+
     IEnumerator MoveRandomMultiple()
     {
         elapsedMoveTime = 0;
@@ -280,12 +298,13 @@ public class WallController : MonoBehaviour
     IEnumerator CloseRandomSingle()
     {
         elapsedCloseTime = 0;
-        closeOrNot = RandomBool();
+        closeOrNot = RandomBool(holeCloseChance);
         while (elapsedCloseTime < holeMoveTime)
         {
             if (closeOrNot)
             {
                 hCs[0].holeSize = Mathf.Lerp(hCs[0].holeSize, 0, elapsedCloseTime / holeCloseTime); // closing one hole
+                closed = true;
             }
             else
             {
@@ -293,14 +312,31 @@ public class WallController : MonoBehaviour
                 {
                     hCs[0].holeSize = Mathf.Lerp(hCs[0].holeSize, holeSize, elapsedCloseTime / holeCloseTime); // and opening the others
                 }
+                closed = false;
             }
             elapsedCloseTime += Time.deltaTime;
             yield return wfeof;
         }
     }
 
-    public static bool RandomBool()
+    IEnumerator OpenHoleSingle()
     {
-        return (Random.value > 0.5f);
+        elapsedCloseTime = 0;
+        while (elapsedCloseTime < holeMoveTime)
+        {
+            if (hCs[0].holeSize != holeSize)
+            {
+                hCs[0].holeSize = Mathf.Lerp(hCs[0].holeSize, holeSize, elapsedCloseTime / holeCloseTime); // and opening the others
+            }
+            closed = false;
+            elapsedCloseTime += Time.deltaTime;
+            yield return wfeof;
+        }
+    }
+
+    public static bool RandomBool(float chance)
+    {
+        chance = Mathf.Clamp01(chance);
+        return (Random.value < chance);
     }
 }
