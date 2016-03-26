@@ -13,7 +13,7 @@ GameObject:
   - 50: {fileID: 5067150}
   - 114: {fileID: 11480476}
   - 114: {fileID: 11438176}
-  - 114: {fileID: 11490722}
+  - 114: {fileID: 11482800}
   m_Layer: 9
   m_Name: Stick
   m_TagString: Stick
@@ -120,8 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   returnRate: 10
   returnThreshold: 0.01
-  debugText: {fileID: 0}
-  debugLine: {fileID: 0}
 --- !u!114 &11480476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,8 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b999bb7d6dc76e48bd20cda22e96aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
---- !u!114 &11490722
+--- !u!114 &11482800
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -142,17 +139,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 159438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
-        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  delegates: []
+  colorManager: {fileID: 0}
+  type: 0
 --- !u!212 &21238164
 SpriteRenderer:
   m_ObjectHideFlags: 1

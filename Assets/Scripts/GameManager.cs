@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float holeCloseChanceStep = 0.01f;
     public bool closeHoles;
 
+    private ColorManager cM;
     private float defaultBallSpeed;
     private float defaultBallSpawnRate;
     private float defaultHoleCloseChance;
@@ -20,9 +21,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        cM = GetComponent<ColorManager>();
         defaultBallSpeed = ballSpawn.ballSpeed;
         defaultBallSpawnRate = ballSpawn.spawnRate;
         defaultHoleCloseChance = walls[0].holeCloseChance;
+    }
+
+    public void ChangeColor()
+    {
+        cM.ChangeColor();
     }
 
     public void MoveHoles()
@@ -51,18 +58,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    bool CheckClosed()
-    {
-        for (int i = 0; i < walls.Length; i++)
-        {
-            if (walls[i].closed)
-            {
-                hasClosedHolesIndex = i;
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void IncreaseDifficulty()
     {
@@ -89,5 +84,18 @@ public class GameManager : MonoBehaviour
         {
             walls[i].holeCloseChance = defaultHoleCloseChance;
         }
+    }
+
+    bool CheckClosed()
+    {
+        for (int i = 0; i < walls.Length; i++)
+        {
+            if (walls[i].closed)
+            {
+                hasClosedHolesIndex = i;
+                return true;
+            }
+        }
+        return false;
     }
 }

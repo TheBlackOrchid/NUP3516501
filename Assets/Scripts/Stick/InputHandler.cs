@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 //test
 
 public class InputHandler : MonoBehaviour
 {
-
-    // public variables
-    public Text debugText;
-    //test
-
     // public properties
     public Vector2 cursorPos { get; private set; }
 

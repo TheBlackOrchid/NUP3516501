@@ -24,6 +24,7 @@ public class BallController : MonoBehaviour {
 		lifeSpanWFS = new WaitForSeconds (lifeSpan);
 		hitCooldownWFS = new WaitForSeconds (hitCooldown);
 		rend = GetComponent<SpriteRenderer> ();
+        StartCoroutine(InitialDeath());
 	}
 
     void OnTriggerEnter2D(Collider2D collider) 
@@ -58,6 +59,12 @@ public class BallController : MonoBehaviour {
 		StopAllCoroutines (); // if disabled - stop counting seconds to death
 	}
 
+    IEnumerator InitialDeath() // needed to change the color
+    {
+        yield return new WaitForEndOfFrame();
+        Kill();
+    }
+
 	IEnumerator Live()
 	{
 		yield return lifeSpanWFS; // you have only this much
@@ -88,7 +95,7 @@ public class BallController : MonoBehaviour {
 		rend.color = currColor;
 	}
 
-	void Kill()
+	public void Kill()
 	{
 		gameObject.SetActive (false); // not very interesting death
 	}

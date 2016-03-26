@@ -5,15 +5,14 @@ public class Spawn : MonoBehaviour
 {
 
     public GameObject ballPrefab; //ball prefab
+    public ScoreController scoreController;
     public bool spawnEnabled = true;
     public int poolSize = 2;
     public float spawnRate = 0.5f;
     public float ballSpeed;
 
-    private ScoreController scoreController;
     private GameObject ballPool;
     private GameObject currBall;
-    private Transform[] balls;
     private Transform myTransform;
     private Rigidbody2D currBallRb;
     private BallController currBallController;
@@ -23,7 +22,6 @@ public class Spawn : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        scoreController = GetComponent<ScoreController>();
         CreatePool("BallPool");
         myTransform = transform;
         currBallIndex = 0;
@@ -75,7 +73,7 @@ public class Spawn : MonoBehaviour
             currBall.transform.localPosition = Vector3.zero; // teleporting ball to pool's position
             currBallController = currBall.GetComponent<BallController>();
             currBallController.scoreController = scoreController;
-            currBall.SetActive(false); // deactivating for now
+            // used to kill itself here. now does it after a while
         }
         currBall = null; // must be null for further actions (in case)
     }

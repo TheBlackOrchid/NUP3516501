@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21270660}
   - 61: {fileID: 6180530}
   - 114: {fileID: 11470140}
+  - 114: {fileID: 11493624}
   m_Layer: 0
   m_Name: Filler
   m_TagString: Wall
@@ -60,6 +61,19 @@ MonoBehaviour:
   lowerHole: {fileID: 0}
   position: 0
   offset: 0.001
+--- !u!114 &11493624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorManager: {fileID: 0}
+  type: 0
 --- !u!212 &21270660
 SpriteRenderer:
   m_ObjectHideFlags: 1

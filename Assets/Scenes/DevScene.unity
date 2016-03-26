@@ -212,7 +212,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 472266, guid: bb7a377034b81d1429f21500eb39399a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11480476, guid: bb7a377034b81d1429f21500eb39399a, type: 2}
       propertyPath: debugText
@@ -226,6 +226,10 @@ Prefab:
       propertyPath: debugLine
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 11482800, guid: bb7a377034b81d1429f21500eb39399a, type: 2}
+      propertyPath: colorManager
+      value: 
+      objectReference: {fileID: 1104851062}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb7a377034b81d1429f21500eb39399a, type: 2}
   m_IsPrefabParent: 0
@@ -303,6 +307,7 @@ GameObject:
   - 224: {fileID: 622350455}
   - 222: {fileID: 622350457}
   - 114: {fileID: 622350456}
+  - 114: {fileID: 622350458}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -366,6 +371,19 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 622350454}
+--- !u!114 &622350458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622350454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorManager: {fileID: 1104851062}
+  type: 2
 --- !u!1 &769332098
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +454,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1104851061}
   - 114: {fileID: 1104851060}
+  - 114: {fileID: 1104851062}
+  - 114: {fileID: 1104851063}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: GameManager
@@ -475,6 +495,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1104851062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104851059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b2d149ebc3629b4e9bbb4dd75bccb2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foregroundColor: {r: 1, g: 0.53279805, b: 0.49019605, a: 1}
+  backgroundColor: {r: 0.9019608, g: 0.1945405, b: 0.1945405, a: 1}
+  hue: 0
+  hueStep: 5
+  setRandomHueOnStart: 1
+--- !u!114 &1104851063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104851059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f766fa0155eae664eb2f622495a93134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 622350456}
 --- !u!1 &1125647629
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +773,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1765944570}
   - 114: {fileID: 1765944569}
-  - 114: {fileID: 1765944571}
   m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
@@ -745,6 +792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 105222, guid: 0c39bafdeec9076448fa982d72c50658, type: 2}
+  scoreController: {fileID: 1104851063}
   spawnEnabled: 1
   poolSize: 5
   spawnRate: 2
@@ -761,18 +809,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
---- !u!114 &1765944571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1765944568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f766fa0155eae664eb2f622495a93134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 622350456}
 --- !u!1 &1786028658
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +821,7 @@ GameObject:
   - 92: {fileID: 1786028661}
   - 124: {fileID: 1786028660}
   - 81: {fileID: 1786028659}
+  - 114: {fileID: 1786028664}
   m_Layer: 0
   m_Name: _MainCamera
   m_TagString: MainCamera
@@ -859,3 +896,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1786028664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1786028658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorManager: {fileID: 1104851062}
+  type: 1

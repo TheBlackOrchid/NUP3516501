@@ -12,6 +12,7 @@ GameObject:
   - 68: {fileID: 6801314}
   - 50: {fileID: 5025980}
   - 114: {fileID: 11465976}
+  - 114: {fileID: 11405354}
   m_Layer: 0
   m_Name: SideDown
   m_TagString: Wall
@@ -47,6 +48,7 @@ GameObject:
   - 68: {fileID: 6800918}
   - 50: {fileID: 5037832}
   - 114: {fileID: 11473828}
+  - 114: {fileID: 11478938}
   m_Layer: 0
   m_Name: SideUp
   m_TagString: Wall
@@ -158,6 +160,19 @@ EdgeCollider2D:
   - {x: -0.6394767, y: 0.00064724684}
   - {x: -0.640093, y: 0.63966125}
   - {x: -0.0002040267, y: 0.00014609098}
+--- !u!114 &11405354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorManager: {fileID: 0}
+  type: 0
 --- !u!114 &11415632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +212,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7585c0f16ba3e314a81a072e0d8f7a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11478938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dac802e9aa2d5f4390821d7b80f80a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorManager: {fileID: 0}
+  type: 0
 --- !u!212 &21211784
 SpriteRenderer:
   m_ObjectHideFlags: 1
