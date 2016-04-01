@@ -31,17 +31,22 @@ public class ColorManager : MonoBehaviour
     private float currColorV;
 
     // hue stuff
-    private float mostHueAbsolute; // most hue in absolute scale from 0 to 359
+    private float mostHueAbsolute;
+    // most hue in absolute scale from 0 to 359
     private int currForegroundHue;
     private int currBackgroundHue;
     private int defaultForegroundHue;
     private int defaultBackgroundHue;
 
     // value  stuff
-    private float valueStepBefore; // step before most hue
-    private float valueStepAfter; // step after most hue
-    private int hueSpan; // hue end - hue start
-    private int valueSpan; // min - max
+    private float valueStepBefore;
+    // step before most hue
+    private float valueStepAfter;
+    // step after most hue
+    private int hueSpan;
+    // hue end - hue start
+    private int valueSpan;
+    // min - max
     private float currBackgroundValue;
     private int defaultBackgroundValue;
 
@@ -58,7 +63,8 @@ public class ColorManager : MonoBehaviour
         mostHueAbsolute = vCorrStartHue + (vCorrMostHue * hueSpan);
         currBackgroundValue = defaultBackgroundValue;
 
-        if (setRandomHueOnStart) SetRandomHue();
+        if (setRandomHueOnStart)
+            SetRandomHue();
         if (valueCorrection)
         {
             valueStepBefore = ValueCorrection(1, vCorrMostHue);
@@ -103,8 +109,7 @@ public class ColorManager : MonoBehaviour
                 + ((mostHueAbsolute - vCorrStartHue) / hueStep) * valueStepBefore
                 + ((hue - mostHueAbsolute) / hueStep) * valueStepAfter;
             }
-        }      
-        Debug.Log(currBackgroundValue);
+        }
     }
 
     void Paint()
@@ -128,12 +133,16 @@ public class ColorManager : MonoBehaviour
         {
             if (currBackgroundHue > vCorrStartHue && currBackgroundHue < vCorrEndHue)
             {
-                if (currBackgroundHue < mostHueAbsolute) currBackgroundValue += valueStepBefore;
-                else currBackgroundValue += valueStepAfter;
+                if (currBackgroundHue < mostHueAbsolute)
+                    currBackgroundValue += valueStepBefore;
+                else
+                    currBackgroundValue += valueStepAfter;
             }
-            else if (currBackgroundValue != defaultBackgroundValue) currBackgroundValue = defaultBackgroundValue;
+            else if (currBackgroundValue != defaultBackgroundValue)
+                currBackgroundValue = defaultBackgroundValue;
         }
-        else if (currBackgroundValue != defaultBackgroundValue) currBackgroundValue = defaultBackgroundValue;
+        else if (currBackgroundValue != defaultBackgroundValue)
+            currBackgroundValue = defaultBackgroundValue;
 
         UpdateColors();
         Paint();
@@ -141,7 +150,9 @@ public class ColorManager : MonoBehaviour
 
     static public int HueOverflow(int value)
     {
-        if (value < 360) return value;
-        else return value - 360;
+        if (value < 360)
+            return value;
+        else
+            return value - 360;
     }
 }

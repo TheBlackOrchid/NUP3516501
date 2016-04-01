@@ -4,41 +4,54 @@ using UnityEngine.UI;
 public class ScoreController : MonoBehaviour
 {
 
-	public Text scoreText;
+    public GameManager gameManager;
+    public StateMachine stateMachine;
+    public Spawn spawn;
+    public Text scoreText;
+    public int minScore = 1;
 
-	private GameManager gM;
-	private int score;
+    private int score;
 
-	void Start()
-	{
-        gM = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-		score = 0;
-		SetText();
-	}
+    void Start()
+    {
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        stateMachine = GameObject.FindWithTag("GameManager").GetComponent<StateMachine>();
+        score = 0;
+        SetText();
+    }
 
-	public void ScoreUp()
-	{
-		score++;
-		SetText();
-		gM.MoveHoles();
-        gM.CloseHoles();
-        gM.IncreaseDifficulty();
-        gM.ChangeColor();
-	}
+    public void ScoreUp()
+    {
+        score++;
+        SetText();
+        gameManager.MoveHoles();
+        gameManager.CloseHoles();
+        gameManager.IncreaseDifficulty();
+        gameManager.ChangeColor();
+    }
 
-	public void Wasted()
-	{
-		score = 0;
-		SetText();
-		gM.MoveHoles();
-        gM.CloseHoles();
-        gM.ResetDifficulty(); // check if score is more than x. if so - show wasted UI, else do nothing
-        gM.ChangeColor();
+    public void Wasted()
+    {
+        if (score >= minScore)
+            stateMachine.NextState();
+        else
+            score = 0;
+        SetText();
+        spawn.KillAll();
+        gameManager.MoveHoles();
+        gameManager.CloseHoles();
+        gameManager.ResetDifficulty(); // check if score is more than x. if so - show wasted UI, else do nothing
+        gameManager.ChangeColor();
+    }
+
+    public void SetScore(int value)
+    {
+        score = value;
     }
 
     void SetText()
-	{
-		scoreText.text = score + "";
-	}
+    {
+        scoreText.text = score + "";
+    }
 
 }

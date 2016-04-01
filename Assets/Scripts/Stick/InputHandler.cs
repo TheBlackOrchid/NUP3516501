@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-//test
-
 public class InputHandler : MonoBehaviour
 {
+    public StateMachine stateMachine;
+    
     // public properties
     public Vector2 cursorPos { get; private set; }
 
@@ -18,6 +18,17 @@ public class InputHandler : MonoBehaviour
         cam = Camera.main;
         cursorPos = (Vector2)transform.position + Vector2.right;
         onStick = false;
+    }
+
+    void Update()
+    {
+        if (stateMachine.state == StateMachine.States.Menu || stateMachine.state == StateMachine.States.Over)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                stateMachine.NextState();
+            }
+        }
     }
 
     void OnMouseDown()
