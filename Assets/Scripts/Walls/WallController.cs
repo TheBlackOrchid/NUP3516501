@@ -45,8 +45,7 @@ public class WallController : MonoBehaviour
     public float wallHeight = 15f;
     // actual height of the wall
     [Tooltip("The height that is available for the holes")]
-    public float wallActiveHeight = 10f;
-    // the height that is available for the holes
+    public float wallActiveHeight = 10f; // the height that is available for the holes
 
     //[Space(10)]
     [Header("Holes parameters")]
@@ -96,17 +95,17 @@ public class WallController : MonoBehaviour
         wfeof = new WaitForEndOfFrame();
         endPositions = new Vector3[holeCount];
 
-        StickToSide();
+		StickToSide(myTransform.parent.position);
         CreateWall();
         DevideIntoSegments();
         AdjustHolePosition();
         GetActiveHolesSegments();
     }
 
-    void StickToSide()
+	void StickToSide(Vector3 origin)
     {
         horScreenEdge = Camera.main.ScreenToWorldPoint(Vector3.right * Screen.width).x;
-        myTransform.position = Vector3.right * (horScreenEdge - wallWidth) * xDir;
+        myTransform.position = origin + Vector3.right * (horScreenEdge - wallWidth) * xDir;
     }
 
     void CreateWall()
@@ -129,7 +128,11 @@ public class WallController : MonoBehaviour
             FillerController fC = currSegment.GetComponent<FillerController>();
             fC.wallController = this;
 
-            if (i > 0 && i < holeCount)
+			if (holeCount == 0)
+			{
+				fC.position = Position.Only; // then set its position (enum) to center
+			}
+            else if (i > 0 && i < holeCount)
             { // if it's not the first or the last
                 fC.position = Position.Center; // then set its position (enum) to center
                 fC.upperHole = holes[i - 1]; // set the upper

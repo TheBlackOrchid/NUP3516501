@@ -14,7 +14,7 @@ public class StateMachine : MonoBehaviour
     public AnimationController animationController;
     public Spawn spawn;
     public ScoreController scoreController;
-    public States state;
+    public States state; 
 
     private WaitForSeconds animationTimeWFS;
     private WaitForSeconds splashScreeWFS;
@@ -88,8 +88,8 @@ public class StateMachine : MonoBehaviour
         animationController.CameraAnimToggle(false);
         yield return animationTimeWFS;
         animationController.MenuToggle(true);
-        state = States.Menu;
-        scoreController.SetScore(0);
+		state = States.Menu;
+		scoreController.SetScore(0);
         // game over off, menu on animations
     }
 }

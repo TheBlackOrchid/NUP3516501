@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public enum Position { Up, Center, Down }
+public enum Position { Up, Center, Down, Only }
 
 public class FillerController : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class FillerController : MonoBehaviour
     private Transform myTransform;
     private HoleController uHHC; // upper hole HoleController
     private HoleController lHHC; // lower hole HoleController
+	private HeightRange ownSegmentOnly;
     private HeightRange ownSegment; // height range
     private float wallWidth;
     private float wallVerticalExtent; // the half of the wall height
@@ -28,6 +29,7 @@ public class FillerController : MonoBehaviour
     {
         myTransform = transform;
         wallVerticalExtent = wallController.wallHeight / 2;
+		ownSegmentOnly = new HeightRange(myTransform.parent.position.y + wallVerticalExtent, myTransform.parent.position.y - wallVerticalExtent);
 
         if (upperHole != null)
         {
@@ -64,6 +66,9 @@ public class FillerController : MonoBehaviour
             case Position.Down:
                 ownSegment = new HeightRange(uHHC.holeExtent.down + offset, myTransform.parent.position.y - wallVerticalExtent);
                 break;
+			case Position.Only:
+				ownSegment = ownSegmentOnly;
+				break;
         }
     }
 

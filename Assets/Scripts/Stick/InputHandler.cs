@@ -24,10 +24,17 @@ public class InputHandler : MonoBehaviour
     {
         if (stateMachine.state == StateMachine.States.Menu || stateMachine.state == StateMachine.States.Over)
         {
-            if (Input.GetMouseButtonDown(0))
+			#if UNITY_EDITOR
+			if (Input.GetMouseButtonDown(0))
             {
                 stateMachine.NextState();
             }
+			#elif UNITY_ANDROID
+			if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+			{
+				stateMachine.NextState();				
+			}
+			#endif
         }
     }
 
