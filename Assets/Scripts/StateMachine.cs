@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class StateMachine : MonoBehaviour
@@ -8,12 +9,14 @@ public class StateMachine : MonoBehaviour
         Start,
         Menu,
         Game,
-        Over}
-    ;
+        Over
+    };
 
     public AnimationController animationController;
     public Spawn spawn;
     public ScoreController scoreController;
+    public Button catcher;
+    public InputHandler inputHandler;
     public States state; 
 
     private WaitForSeconds animationTimeWFS;
@@ -52,6 +55,8 @@ public class StateMachine : MonoBehaviour
         animationController.SplashScreenPlay();
         yield return splashScreeWFS;
         animationController.MenuToggle(true);
+        catcher.interactable = true;
+        inputHandler.canReadInput = false;
         yield return animationTimeWFS;
         state++;
         // splash scree off, menu on animations
@@ -60,6 +65,8 @@ public class StateMachine : MonoBehaviour
     IEnumerator MenuToGame()
     {
         //use coroutines;
+        catcher.interactable = false;
+        inputHandler.canReadInput = true;
         animationController.MenuToggle(false);
         yield return animationTimeWFS;
         state++;
@@ -75,6 +82,8 @@ public class StateMachine : MonoBehaviour
         //use coroutines;
         spawn.spawnEnabled = false;
         animationController.GameOverToggle(true);
+        catcher.interactable = true;
+        inputHandler.canReadInput = false;
         yield return animationTimeWFS;
         state++;
         // game off, game over on animations
@@ -83,12 +92,16 @@ public class StateMachine : MonoBehaviour
     IEnumerator GameOverToMenu()
     {
         //use coroutines;
+        catcher.interactable = false;
+        inputHandler.canReadInput = true;
         animationController.GameToggle(false);
         animationController.GameOverToggle(false);
         animationController.CameraAnimToggle(false);
         yield return animationTimeWFS;
         animationController.MenuToggle(true);
-		state = States.Menu;
+        catcher.interactable = true;
+        inputHandler.canReadInput = false;
+        state = States.Menu;
 		scoreController.SetScore(0);
         // game over off, menu on animations
     }
