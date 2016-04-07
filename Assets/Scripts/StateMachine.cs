@@ -9,15 +9,17 @@ public class StateMachine : MonoBehaviour
         Start,
         Menu,
         Game,
-        Over
-    };
+        Over}
 
-    public AnimationController animationController;
+    ;
+
     public Spawn spawn;
     public ScoreController scoreController;
-    public Button catcher;
     public InputHandler inputHandler;
-    public States state; 
+    public PlayGamesController playGamesController;
+    public AnimationController animationController;
+    public Button catcher;
+    public States state;
 
     private WaitForSeconds animationTimeWFS;
     private WaitForSeconds splashScreeWFS;
@@ -84,8 +86,12 @@ public class StateMachine : MonoBehaviour
         animationController.GameOverToggle(true);
         catcher.interactable = true;
         inputHandler.canReadInput = false;
-        yield return animationTimeWFS;
         state++;
+        //#if UNITY_EDITOR
+        //#elif UNITY_ANDROID
+        scoreController.SetBestScore(playGamesController.GetBestScore());
+        //#endif
+        yield return animationTimeWFS;
         // game off, game over on animations
     }
 
@@ -102,7 +108,7 @@ public class StateMachine : MonoBehaviour
         catcher.interactable = true;
         inputHandler.canReadInput = false;
         state = States.Menu;
-		scoreController.SetScore(0);
+        scoreController.SetScore(0);
         // game over off, menu on animations
     }
 }

@@ -90,15 +90,15 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.theblackorchid.stick
-  bundleVersion: 0.1
+  bundleVersion: 0.2
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   virtualRealitySupported: 0
   productGUID: 83fba9473b4db2b408040f4d1dde9458
-  AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 9
+  AndroidBundleVersionCode: 2
+  AndroidMinSdkVersion: 14
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
@@ -158,8 +158,8 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: G:/Users/Dima/Documents/GitHub/NUP3516501/TheBlackOrchidKeystore.keystore
+  AndroidKeyaliasName: tbo main keystore
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
