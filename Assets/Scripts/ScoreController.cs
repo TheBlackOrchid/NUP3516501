@@ -12,7 +12,7 @@ public class ScoreController : MonoBehaviour
     public Text bestText;
     public int minScore = 1;
 
-    private int score;
+    public int score { get; private set; }
 
     void Start()
     {
@@ -35,11 +35,15 @@ public class ScoreController : MonoBehaviour
     public void Wasted()
     {
         playGamesController.SubmitScore(score);
+        if (score > playGamesController.best)
+            playGamesController.best = score;
+
         if (score >= minScore)
-            stateMachine.NextState();
+            stateMachine.GameOver();
         else
             score = 0;
         SetText();
+        SetBestScore(playGamesController.best);
         spawn.KillAll();
         gameManager.MoveHoles();
         gameManager.CloseHoles();

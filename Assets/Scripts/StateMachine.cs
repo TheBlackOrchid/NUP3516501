@@ -48,7 +48,25 @@ public class StateMachine : MonoBehaviour
             case States.Over:
                 StartCoroutine(GameOverToMenu());
                 break;
+            default:
+                StartCoroutine(GameOverToMenu());
+                break;
         }
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameToGameOver());
+    }
+
+    public void ToMenu()
+    {
+        StartCoroutine(GameOverToMenu());
+    }
+
+    public void ToGame()
+    {
+        StartCoroutine(MenuToGame());
     }
 
     IEnumerator StartToMenu()
@@ -60,7 +78,7 @@ public class StateMachine : MonoBehaviour
         catcher.interactable = true;
         inputHandler.canReadInput = false;
         yield return animationTimeWFS;
-        state++;
+        state = States.Menu;
         // splash scree off, menu on animations
     }
 
@@ -71,7 +89,7 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = true;
         animationController.MenuToggle(false);
         yield return animationTimeWFS;
-        state++;
+        state = States.Game;
         animationController.GameToggle(true);
         animationController.CameraAnimToggle(true);
         yield return animationTimeWFS;
@@ -84,14 +102,10 @@ public class StateMachine : MonoBehaviour
         //use coroutines;
         spawn.spawnEnabled = false;
         animationController.GameOverToggle(true);
-        //#if UNITY_EDITOR
-        //#elif UNITY_ANDROID
-        scoreController.SetBestScore(playGamesController.GetBestScore());
-        //#endif
         yield return animationTimeWFS;
-		state++;
-		catcher.interactable = true;
-		inputHandler.canReadInput = false;
+        state = States.Over;
+        catcher.interactable = true;
+        inputHandler.canReadInput = false;
         // game off, game over on animations
     }
 

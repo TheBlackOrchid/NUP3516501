@@ -6,17 +6,34 @@ using UnityEngine.SocialPlatforms;
 
 public class PlayGamesController : MonoBehaviour
 {
-    private int best;
+    public int best { get; set; }
+
+    private ILeaderboard lb;
 
     // Use this for initialization
     void Awake()
     {
         Initialize();
+        best = -1;
+        Time.timeScale = 0.01f;
+        lb = PlayGamesPlatform.Instance.CreateLeaderboard();
+        lb.id = Constants.leaderboard_stick_top_players;
+        lb.timeScope = TimeScope.AllTime;
     }
 
     void Start()
     {
         SignIn();
+        //GetBestScore();
+    }
+
+    void Update()
+    {
+        if (best == -1)
+        {
+            if (!lb.loading)
+                GetBestScore(lb);
+        }
     }
 
     public void Initialize()
@@ -27,7 +44,7 @@ public class PlayGamesController : MonoBehaviour
 //
 //        PlayGamesPlatform.InitializeInstance(config);
         // recommended for debugging:
-        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.DebugLogEnabled = false;
         // Activate the Google Play Games platform
         PlayGamesPlatform.Activate();
     }
@@ -42,11 +59,16 @@ public class PlayGamesController : MonoBehaviour
                 if (success)
                 {
                     Time.timeScale = 1;
+                    GetBestScore(lb);
                     //Debug.Log("You've successfuly logged in");
                 }
                 else
                 {
+                    #if UNITY_EDITOR
                     Time.timeScale = 1;
+                    #elif UNITY_ANDROID
+                    SignIn();
+                    #endif
                     Debug.Log("Log in failed!");
                 }
             });
@@ -55,60 +77,36 @@ public class PlayGamesController : MonoBehaviour
     public void SubmitScore(int score)
     {
         // post score 12345 to leaderboard ID "Cfji293fjsie_QA")
-        Social.ReportScore(score, Constants.leaderboard_stick_leaderboard, (bool success) =>
+        Social.ReportScore(score, Constants.leaderboard_stick_top_players, (bool success) =>
             {
                 // handle success or failure
             });
     }
 
-    public int GetBestScore()
+    public void GetBestScore(ILeaderboard lb)
     {
-        //LeaderboardScoreData data = new LeaderboardScoreData(Constants.leaderboard_stick_leaderboard);
-        int score = 0;
-        //LoadScore();
-        PlayGamesPlatform.Instance.LoadScores(
-            Constants.leaderboard_stick_leaderboard,
-            LeaderboardStart.PlayerCentered,
-            1,
-            LeaderboardCollection.Public,
-            LeaderboardTimeSpan.AllTime,
-            (data) =>
+        lb.LoadScores(ok =>
             {
-                if (data.Valid)
-                    score = (int)data.PlayerScore.value;
-            });
-        return score;
-    }
-
-    void LoadScore()
-    {
-//        PlayGamesPlatform.Instance.LoadScores(
-//            Constants.leaderboard_stick_leaderboard,
-//            LeaderboardStart.PlayerCentered,
-//            1,
-//            LeaderboardCollection.Public,
-//            LeaderboardTimeSpan.AllTime,
-//            (data) =>
-//            {
-//                best = (int)data.PlayerScore.value;
-//            });
-        PlayGamesPlatform.Instance.LoadScores(
-            Constants.leaderboard_stick_leaderboard,
-            LeaderboardStart.PlayerCentered,
-            1,
-            LeaderboardCollection.Public,
-            LeaderboardTimeSpan.AllTime,
-            (data) =>
-            {
-                if (data.Valid)
-                    best = (int)data.PlayerScore.value;
+                if (ok)
+                {
+                    best = (int)lb.localUserScore.value;
+                    Time.timeScale = 1;
+                }
+                else
+                {
+                    #if UNITY_EDITOR
+                    Time.timeScale = 1;
+                    #elif UNITY_ANDROID
+                    //GetBestScore();
+                    #endif
+                }
             });
     }
 
     public void ShowLeaderboardUI()
     {
         // show leaderboard UI
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(Constants.leaderboard_stick_leaderboard);
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(Constants.leaderboard_stick_top_players);
     }
 
 }
