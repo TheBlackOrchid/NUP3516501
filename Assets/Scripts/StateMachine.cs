@@ -84,14 +84,14 @@ public class StateMachine : MonoBehaviour
         //use coroutines;
         spawn.spawnEnabled = false;
         animationController.GameOverToggle(true);
-        catcher.interactable = true;
-        inputHandler.canReadInput = false;
-        state++;
         //#if UNITY_EDITOR
         //#elif UNITY_ANDROID
         scoreController.SetBestScore(playGamesController.GetBestScore());
         //#endif
         yield return animationTimeWFS;
+		state++;
+		catcher.interactable = true;
+		inputHandler.canReadInput = false;
         // game off, game over on animations
     }
 
