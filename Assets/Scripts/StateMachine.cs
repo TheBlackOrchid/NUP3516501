@@ -15,13 +15,14 @@ public class StateMachine : MonoBehaviour
 
     public Spawn spawn;
     public ScoreController scoreController;
+    public AdController adController;
     public InputHandler inputHandler;
     public PlayGamesController playGamesController;
     public AnimationController animationController;
     public Button catcher;
     public States state;
 
-
+    private Coroutine currCoroutine;
     private WaitForSeconds animationTimeWFS;
     private WaitForSeconds splashScreeWFS;
 
@@ -29,6 +30,7 @@ public class StateMachine : MonoBehaviour
     {
         animationTimeWFS = new WaitForSeconds(animationController.animationTime);
         splashScreeWFS = new WaitForSeconds(animationController.splashScreenDuration);
+        adController.Init();
         NextState();
     }
 
@@ -38,36 +40,44 @@ public class StateMachine : MonoBehaviour
         switch (state)
         {
             case States.Start:
-                StartCoroutine(StartToMenu());
+                if (currCoroutine == null)
+                    currCoroutine = StartCoroutine(StartToMenu());
                 break;
             case States.Menu:
-                StartCoroutine(MenuToGame());
+                if (currCoroutine == null)
+                    currCoroutine = StartCoroutine(MenuToGame());
                 break;
             case States.Game:
-                StartCoroutine(GameToGameOver());
+                if (currCoroutine == null)
+                    currCoroutine = StartCoroutine(GameToGameOver());
                 break;
             case States.Over:
-                StartCoroutine(GameOverToMenu());
+                if (currCoroutine == null)
+                    currCoroutine = StartCoroutine(GameOverToMenu());
                 break;
             default:
-                StartCoroutine(GameOverToMenu());
+                if (currCoroutine == null)
+                    currCoroutine = StartCoroutine(GameOverToMenu());
                 break;
         }
     }
 
     public void GameOver()
     {
-        StartCoroutine(GameToGameOver());
+        if (currCoroutine == null)
+            currCoroutine = StartCoroutine(GameToGameOver());
     }
 
     public void ToMenu()
     {
-        StartCoroutine(GameOverToMenu());
+        if (currCoroutine == null)
+            currCoroutine = StartCoroutine(GameOverToMenu());
     }
 
     public void ToGame()
     {
-        StartCoroutine(MenuToGame());
+        if (currCoroutine == null)
+            currCoroutine = StartCoroutine(MenuToGame());
     }
 
     IEnumerator StartToMenu()
@@ -80,6 +90,8 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = false;
         yield return animationTimeWFS;
         state = States.Menu;
+        adController.showBanner();
+        currCoroutine = null;
         // splash scree off, menu on animations
     }
 
@@ -95,6 +107,7 @@ public class StateMachine : MonoBehaviour
         animationController.CameraAnimToggle(true);
         yield return animationTimeWFS;
         spawn.spawnEnabled = true;
+        currCoroutine = null;
         // menu off, game on animations
     }
 
@@ -107,6 +120,7 @@ public class StateMachine : MonoBehaviour
         state = States.Over;
         catcher.interactable = true;
         inputHandler.canReadInput = false;
+        currCoroutine = null;
         // game off, game over on animations
     }
 
@@ -124,6 +138,7 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = false;
         state = States.Menu;
         scoreController.SetScore(0);
+        currCoroutine = null;
         // game over off, menu on animations
     }
 }
