@@ -59,7 +59,14 @@ public class ScoreController : MonoBehaviour
 
     public void SetBestScore(int best)
     {
-        SetText(bestText, "BEST " + best);
+        if (playGamesController.hasBest)
+        {
+            SetText(bestText, "BEST " + best);
+        }
+        else
+        {
+            SetText(bestText, "");
+        }
     }
 
     void SetText()

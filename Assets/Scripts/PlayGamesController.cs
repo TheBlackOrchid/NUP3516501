@@ -8,6 +8,8 @@ public class PlayGamesController : MonoBehaviour
 {
     public int best { get; set; }
 
+    public bool hasBest { get; set; }
+
     private ILeaderboard lb;
 
     // Use this for initialization
@@ -87,6 +89,7 @@ public class PlayGamesController : MonoBehaviour
     {
         lb.LoadScores(ok =>
             {
+                hasBest = ok;
                 if (ok)
                 {
                     best = (int)lb.localUserScore.value;
