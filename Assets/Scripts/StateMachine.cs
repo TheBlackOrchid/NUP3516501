@@ -21,6 +21,7 @@ public class StateMachine : MonoBehaviour
     public Button catcher;
     public States state;
 
+
     private WaitForSeconds animationTimeWFS;
     private WaitForSeconds splashScreeWFS;
 
