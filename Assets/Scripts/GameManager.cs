@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
         cM = GetComponent<ColorManager>();
         defaultBallSpeed = ballSpawn.ballSpeed;
         defaultBallSpawnRate = ballSpawn.spawnRate;
