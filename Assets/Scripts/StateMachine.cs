@@ -80,6 +80,12 @@ public class StateMachine : MonoBehaviour
             currCoroutine = StartCoroutine(MenuToGame());
     }
 
+    public void Continue()
+    {
+        if (currCoroutine == null)
+            currCoroutine = StartCoroutine(GameOverToGame());
+    }
+
     IEnumerator StartToMenu()
     {
         //use coroutines;
@@ -122,6 +128,19 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = false;
         currCoroutine = null;
         // game off, game over on animations
+    }
+
+    IEnumerator GameOverToGame()
+    {
+        catcher.interactable = false;
+        inputHandler.canReadInput = true;
+        animationController.GameOverToggle(false);
+        yield return animationTimeWFS;
+        state = States.Game;
+        animationController.GameToggle(true);
+        yield return animationTimeWFS;
+        spawn.spawnEnabled = true;
+        currCoroutine = null;
     }
 
     IEnumerator GameOverToMenu()

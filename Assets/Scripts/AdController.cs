@@ -6,9 +6,14 @@ using AppodealAds.Unity.Common;
 
 public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdListener, ISkippableVideoAdListener, IRewardedVideoAdListener
 {
+    public StateMachine stateMachine;
+    public Button continueButton;
     public bool logging;
     public bool testing;
     public bool confirm = true;
+    public int maxViedoAds = 3;
+
+    private int videoAdCount;
 
 
     #if UNITY_EDITOR
@@ -210,7 +215,13 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 
     public void onRewardedVideoFinished(int amount, string name)
     {
-        print("Rewarded Video Reward: " + amount + " " + name);
+        //print("Rewarded Video Reward: " + amount + " " + name);
+        videoAdCount++;
+        stateMachine.Continue();
+        if (videoAdCount >= maxViedoAds)
+        {
+            continueButton.interactable = false;
+        }
     }
 
     #endregion

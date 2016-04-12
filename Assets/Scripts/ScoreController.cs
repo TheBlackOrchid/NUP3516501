@@ -78,5 +78,4 @@ public class ScoreController : MonoBehaviour
     {
         text.text = str;
     }
-
 }
