@@ -22,9 +22,6 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 
     #elif UNITY_ANDROID
     string appKey = "7d92eb14a6f22da4e8931afe1659b8cb5115b6b77629e6d4"; 
-
-#else
-    string appKey = "";
     #endif
 
     public void Init()
