@@ -7,6 +7,7 @@ public class ScoreController : MonoBehaviour
     public GameManager gameManager;
     public StateMachine stateMachine;
     public PlayGamesController playGamesController;
+    public ShareInfo gameOverShareInfo;
     public Spawn spawn;
     public Text scoreText;
     public Text bestText;
@@ -30,6 +31,7 @@ public class ScoreController : MonoBehaviour
         gameManager.CloseHoles();
         gameManager.IncreaseDifficulty();
         gameManager.ChangeColor();
+        gameOverShareInfo.text = string.Format(gameOverShareInfo.format, score);
     }
 
     public void Wasted()
