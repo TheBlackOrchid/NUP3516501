@@ -19,6 +19,8 @@ public class StateMachine : MonoBehaviour
     public InputHandler inputHandler;
     public PlayGamesController playGamesController;
     public AnimationController animationController;
+	public AudioSource splashAudio;
+	public AudioSource bgAudio;
     public Button catcher;
     public States state;
 
@@ -89,6 +91,7 @@ public class StateMachine : MonoBehaviour
     IEnumerator StartToMenu()
     {
         //use coroutines;
+		splashAudio.Play();
         animationController.SplashScreenPlay();
         yield return splashScreeWFS;
         animationController.MenuToggle(true);
@@ -97,6 +100,8 @@ public class StateMachine : MonoBehaviour
         yield return animationTimeWFS;
         state = States.Menu;
         adController.showBanner();
+		splashAudio.Stop();
+		bgAudio.Play();
         currCoroutine = null;
         // splash scree off, menu on animations
     }
