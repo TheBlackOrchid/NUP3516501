@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
     {
         Start,
         Menu,
-		Tutorial,
+        Tutorial,
         Game,
         Over}
 
@@ -20,11 +20,12 @@ public class StateMachine : MonoBehaviour
     public InputHandler inputHandler;
     public PlayGamesController playGamesController;
     public AnimationController animationController;
-	public AudioSource splashAudio;
-	public AudioSource bgAudio;
+    public AudioManager audioManager;
+    public AudioSource splashAudio;
+    public AudioSource bgAudio;
     public Button catcher;
     public States state;
-	public bool needTutorial;
+    public bool needTutorial;
 
     private Coroutine currCoroutine;
     private WaitForSeconds animationTimeWFS;
@@ -78,20 +79,21 @@ public class StateMachine : MonoBehaviour
             currCoroutine = StartCoroutine(GameOverToMenu());
     }
 
-	public void ToTutorial()
-	{
-		if (currCoroutine == null)
-			currCoroutine = StartCoroutine (MenuToTutorial ());
-	}
+    public void ToTutorial()
+    {
+        if (currCoroutine == null)
+            currCoroutine = StartCoroutine(MenuToTutorial());
+    }
 
     public void ToGame()
     {
-		if (currCoroutine == null) {
-			if (state == States.Menu)
-				currCoroutine = StartCoroutine (MenuToGame ());
-			else if (state == States.Tutorial)
-				currCoroutine = StartCoroutine (TutorialToGame ());
-		}
+        if (currCoroutine == null)
+        {
+            if (state == States.Menu)
+                currCoroutine = StartCoroutine(MenuToGame());
+            else if (state == States.Tutorial)
+                currCoroutine = StartCoroutine(TutorialToGame());
+        }
     }
 
     public void Continue()
@@ -103,18 +105,18 @@ public class StateMachine : MonoBehaviour
     IEnumerator StartToMenu()
     {
         //use coroutines;
-		splashAudio.Play();
+        splashAudio.Play();
         animationController.SplashScreenPlay();
         yield return splashScreeWFS;
         animationController.MenuToggle(true);
         catcher.interactable = true;
         inputHandler.canReadInput = false;
+        splashAudio.Stop();
+        bgAudio.Play();
         yield return animationTimeWFS;
         state = States.Menu;
         adController.showBanner();
-		splashAudio.Stop();
-		bgAudio.Play();
-		needTutorial = playGamesController.best <= 0;
+        needTutorial = playGamesController.best <= 2;
         currCoroutine = null;
         // splash scree off, menu on animations
     }
@@ -135,41 +137,42 @@ public class StateMachine : MonoBehaviour
         // menu off, game on animations
     }
 
-	IEnumerator MenuToTutorial()
-	{
-		animationController.MenuToggle(false);
-		yield return animationTimeWFS;
-		state = States.Tutorial;
-		animationController.GameToggle(true);
-		animationController.TutorialToggle(true);
-		animationController.CameraAnimToggle(true);
-		yield return animationTimeWFS;
-		needTutorial = false;
-		currCoroutine = null;
-	}
+    IEnumerator MenuToTutorial()
+    {
+        animationController.MenuToggle(false);
+        yield return animationTimeWFS;
+        state = States.Tutorial;
+        animationController.GameToggle(true);
+        animationController.CameraAnimToggle(true);
+        yield return animationTimeWFS;
+        animationController.TutorialToggle(true);
+        needTutorial = false;
+        currCoroutine = null;
+    }
 
-	IEnumerator TutorialToGame()
-	{
-		//use coroutines;
-		catcher.interactable = false;
-		inputHandler.canReadInput = true;
-		animationController.TutorialToggle(false);
-		yield return animationTimeWFS;
-		state = States.Game;
-		spawn.spawnEnabled = true;
-		currCoroutine = null;
-		// menu off, game on animations
-	}
+    IEnumerator TutorialToGame()
+    {
+        //use coroutines;
+        catcher.interactable = false;
+        inputHandler.canReadInput = true;
+        animationController.TutorialToggle(false);
+        yield return animationTimeWFS;
+        state = States.Game;
+        spawn.spawnEnabled = true;
+        currCoroutine = null;
+        // menu off, game on animations
+    }
 
     IEnumerator GameToGameOver()
     {
         //use coroutines;
         spawn.spawnEnabled = false;
         animationController.GameOverToggle(true);
+        audioManager.ToggleGameOver(true);
+        inputHandler.canReadInput = false;
         yield return animationTimeWFS;
         state = States.Over;
         catcher.interactable = true;
-        inputHandler.canReadInput = false;
         currCoroutine = null;
         // game off, game over on animations
     }
@@ -181,6 +184,7 @@ public class StateMachine : MonoBehaviour
         animationController.GameOverToggle(false);
         yield return animationTimeWFS;
         state = States.Game;
+        audioManager.ToggleGameOver(false);
         animationController.GameToggle(true);
         yield return animationTimeWFS;
         spawn.spawnEnabled = true;
@@ -195,6 +199,7 @@ public class StateMachine : MonoBehaviour
         animationController.GameToggle(false);
         animationController.GameOverToggle(false);
         animationController.CameraAnimToggle(false);
+        audioManager.ToggleGameOver(false);
         yield return animationTimeWFS;
         animationController.MenuToggle(true);
         catcher.interactable = true;

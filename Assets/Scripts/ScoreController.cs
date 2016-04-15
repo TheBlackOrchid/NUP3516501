@@ -39,7 +39,6 @@ public class ScoreController : MonoBehaviour
         playGamesController.SubmitScore(score);
         if (score > playGamesController.best)
             playGamesController.best = score;
-
         if (score >= minScore)
             stateMachine.GameOver();
         else

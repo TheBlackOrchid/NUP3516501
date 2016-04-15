@@ -210,6 +210,11 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
         print("Rewarded Video closed");
     }
 
+    public void ORVF()
+    {
+        onRewardedVideoFinished(0, "null");
+    }
+
     public void onRewardedVideoFinished(int amount, string name)
     {
         //print("Rewarded Video Reward: " + amount + " " + name);
