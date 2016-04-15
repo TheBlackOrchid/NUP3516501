@@ -27,10 +27,18 @@ public class InputHandler : MonoBehaviour
     {
         switch (stateMachine.state)
         {
-            case StateMachine.States.Menu:
-                stateMachine.ToGame();
-                self.interactable = false;
+		case StateMachine.States.Menu:
+			if (!stateMachine.needTutorial) {
+				stateMachine.ToGame ();
+				self.interactable = false;
+			} else {
+				stateMachine.ToTutorial ();
+			}
                 break;
+		case StateMachine.States.Tutorial:
+			stateMachine.ToGame ();
+			self.interactable = false;
+			break;
             case StateMachine.States.Over:
                 stateMachine.ToMenu();
                 self.interactable = false;

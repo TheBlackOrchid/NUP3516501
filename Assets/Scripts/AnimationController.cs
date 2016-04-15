@@ -4,6 +4,7 @@ using System.Collections;
 public class AnimationController : MonoBehaviour
 {
     public Animator splashScreenLayout;
+	public Animator tutorialLayout;
     public Animator menuLayout;
     public Animator gameLayout;
     public Animator gameOverLayout;
@@ -16,6 +17,11 @@ public class AnimationController : MonoBehaviour
     {
         splashScreenLayout.SetTrigger("play");
     }
+
+	public void TutorialToggle (bool toggle)
+	{
+		tutorialLayout.SetBool("fade", toggle);
+	}
 
     public void MenuToggle(bool toggle)
     {

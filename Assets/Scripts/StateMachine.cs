@@ -8,6 +8,7 @@ public class StateMachine : MonoBehaviour
     {
         Start,
         Menu,
+		Tutorial,
         Game,
         Over}
 
@@ -23,6 +24,7 @@ public class StateMachine : MonoBehaviour
 	public AudioSource bgAudio;
     public Button catcher;
     public States state;
+	public bool needTutorial;
 
     private Coroutine currCoroutine;
     private WaitForSeconds animationTimeWFS;
@@ -76,10 +78,20 @@ public class StateMachine : MonoBehaviour
             currCoroutine = StartCoroutine(GameOverToMenu());
     }
 
+	public void ToTutorial()
+	{
+		if (currCoroutine == null)
+			currCoroutine = StartCoroutine (MenuToTutorial ());
+	}
+
     public void ToGame()
     {
-        if (currCoroutine == null)
-            currCoroutine = StartCoroutine(MenuToGame());
+		if (currCoroutine == null) {
+			if (state == States.Menu)
+				currCoroutine = StartCoroutine (MenuToGame ());
+			else if (state == States.Tutorial)
+				currCoroutine = StartCoroutine (TutorialToGame ());
+		}
     }
 
     public void Continue()
@@ -102,6 +114,7 @@ public class StateMachine : MonoBehaviour
         adController.showBanner();
 		splashAudio.Stop();
 		bgAudio.Play();
+		needTutorial = playGamesController.best <= 0;
         currCoroutine = null;
         // splash scree off, menu on animations
     }
@@ -121,6 +134,32 @@ public class StateMachine : MonoBehaviour
         currCoroutine = null;
         // menu off, game on animations
     }
+
+	IEnumerator MenuToTutorial()
+	{
+		animationController.MenuToggle(false);
+		yield return animationTimeWFS;
+		state = States.Tutorial;
+		animationController.GameToggle(true);
+		animationController.TutorialToggle(true);
+		animationController.CameraAnimToggle(true);
+		yield return animationTimeWFS;
+		needTutorial = false;
+		currCoroutine = null;
+	}
+
+	IEnumerator TutorialToGame()
+	{
+		//use coroutines;
+		catcher.interactable = false;
+		inputHandler.canReadInput = true;
+		animationController.TutorialToggle(false);
+		yield return animationTimeWFS;
+		state = States.Game;
+		spawn.spawnEnabled = true;
+		currCoroutine = null;
+		// menu off, game on animations
+	}
 
     IEnumerator GameToGameOver()
     {
