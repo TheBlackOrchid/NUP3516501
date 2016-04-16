@@ -12,9 +12,11 @@ public class BallController : MonoBehaviour
     public float lifeSpan = 5;
     public int lives = 3;
     public float hitCooldown = 0.5f;
+    public float deathDuration = 0.5f;
 
     private WaitForSeconds lifeSpanWFS;
     private WaitForSeconds hitCooldownWFS;
+    private WaitForEndOfFrame wfeof;
     private SpriteRenderer rend;
     private Color currColor;
     private bool canHit = true;
@@ -25,6 +27,7 @@ public class BallController : MonoBehaviour
         lifeCounter = lives;
         lifeSpanWFS = new WaitForSeconds(lifeSpan);
         hitCooldownWFS = new WaitForSeconds(hitCooldown);
+        wfeof = new WaitForEndOfFrame();
         rend = GetComponent<SpriteRenderer>();
         StartCoroutine(InitialDeath());
     }
@@ -99,15 +102,39 @@ public class BallController : MonoBehaviour
 
     void ChangeColor(int index)
     {
-        currColor = rend.color;
-        currColor.a = conditionAlpha[index];
-        rend.color = currColor;
+        if (index >= 0 && index < conditionAlpha.Length)
+        {
+            currColor = rend.color;
+            currColor.a = conditionAlpha[index];
+            rend.color = currColor;
+        }
+        else
+        {
+            currColor = rend.color;
+            currColor.a = conditionAlpha[0];
+            rend.color = currColor;
+        }
     }
 
     public void Kill()
     {
-        gameObject.SetActive(false); // not very interesting death
-        // play animation
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(KillCoroutine());        
     }
 
+    IEnumerator KillCoroutine()
+    {
+        float elapsedTime = 0;
+        currColor = rend.color;
+        if (currColor.a == 0)
+            elapsedTime = deathDuration + 1;
+        while (elapsedTime < deathDuration)
+        {
+            currColor.a = Mathf.Lerp(currColor.a, 0, elapsedTime / deathDuration);
+            rend.color = currColor;
+            elapsedTime += Time.deltaTime;
+            yield return wfeof;
+        }
+        gameObject.SetActive(false);
+    }
 }

@@ -10,11 +10,13 @@ public class AppodealDemo : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
     #if UNITY_EDITOR && !UNITY_ANDROID && !UNITY_IPHONE
 		string appKey = "";
 	
+
 #elif UNITY_ANDROID
-    string appKey = "fee50c333ff3825fd6ad6d38cff78154de3025546d47a84f";
+    string appKey = "7d92eb14a6f22da4e8931afe1659b8cb5115b6b77629e6d4";
     #elif UNITY_IPHONE
 		string appKey = "dee74c5129f53fc629a44a690a02296694e3eef99f2d3a5f";
 	
+
 #else
 		string appKey = "";
 	#endif

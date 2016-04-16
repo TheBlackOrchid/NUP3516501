@@ -1409,6 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b5a7c82a3d4fa42bc068840fb6fb50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseOnLogin: 0
 --- !u!114 &1104851068
 MonoBehaviour:
   m_ObjectHideFlags: 0
