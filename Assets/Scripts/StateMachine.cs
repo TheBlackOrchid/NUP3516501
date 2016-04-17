@@ -20,10 +20,12 @@ public class StateMachine : MonoBehaviour
     public InputHandler inputHandler;
     public PlayGamesController playGamesController;
     public AnimationController animationController;
+    public IABController iabController;
     public AudioManager audioManager;
     public AudioSource splashAudio;
     public AudioSource bgAudio;
     public Button catcher;
+    public Button noAdsButton;
     public States state;
     public bool needTutorial;
 
@@ -35,8 +37,9 @@ public class StateMachine : MonoBehaviour
     {
         animationTimeWFS = new WaitForSeconds(animationController.animationTime);
         splashScreeWFS = new WaitForSeconds(animationController.splashScreenDuration);
-        adController.Init();
         NextState();
+        adController.Init();
+        iabController.Init();
     }
 
     [ContextMenu("Next State")]
@@ -102,6 +105,12 @@ public class StateMachine : MonoBehaviour
             currCoroutine = StartCoroutine(GameOverToGame());
     }
 
+    public void DisableAds()
+    {
+        noAdsButton.interactable = false;
+        adController.hideBanner();
+    }
+
     IEnumerator StartToMenu()
     {
         //use coroutines;
@@ -113,10 +122,18 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = false;
         splashAudio.Stop();
         bgAudio.Play();
+        iabController.QueryInventory();
         yield return animationTimeWFS;
         state = States.Menu;
-        adController.showBanner();
         needTutorial = playGamesController.best <= 2;
+        if (!iabController.CheckNoAds())
+        {
+            adController.showBanner();
+        }
+        else
+        {
+            noAdsButton.interactable = false;
+        }
         currCoroutine = null;
         // splash scree off, menu on animations
     }

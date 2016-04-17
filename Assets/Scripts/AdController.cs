@@ -8,6 +8,7 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 {
     public StateMachine stateMachine;
     public Button continueButton;
+    public GameObject tooltip;
     public bool logging;
     public bool testing;
     public bool confirm = true;
@@ -223,6 +224,7 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
         if (videoAdCount >= maxViedoAds)
         {
             continueButton.interactable = false;
+            tooltip.SetActive(false);
         }
     }
 

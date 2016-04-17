@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         cM = GetComponent<ColorManager>();
         defaultBallSpeed = ballSpawn.ballSpeed;
         defaultBallSpawnRate = ballSpawn.spawnRate;
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
             }
             for (int i = 0; i < walls.Length; i++)
             {
-                if (i == hasClosedHolesIndex) continue;
+                if (i == hasClosedHolesIndex)
+                    continue;
 
                 walls[i].CloseRandomHole();
             }
