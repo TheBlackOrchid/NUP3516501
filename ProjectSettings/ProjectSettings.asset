@@ -90,14 +90,14 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleIdentifier: com.theblackorchid.stick
-  bundleVersion: 0.3
+  bundleVersion: 0.4
   preloadedAssets: []
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0
   virtualRealitySupported: 0
   productGUID: 83fba9473b4db2b408040f4d1dde9458
-  AndroidBundleVersionCode: 32
+  AndroidBundleVersionCode: 40
   AndroidMinSdkVersion: 14
   AndroidPreferredInstallLocation: 1
   aotOptions: 
