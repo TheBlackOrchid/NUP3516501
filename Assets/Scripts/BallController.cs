@@ -5,6 +5,7 @@ public class BallController : MonoBehaviour
 {
 
     public ScoreController scoreController;
+	public AudioSource audioG;
 
     [Range(0f, 1f)]
     public float[] conditionAlpha = new float[4];
@@ -36,6 +37,7 @@ public class BallController : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Counter"))
         {
+			audioG.Play();
             scoreController.ScoreUp(); // lucky one
         }
         else if (collider.gameObject.CompareTag("Killer"))

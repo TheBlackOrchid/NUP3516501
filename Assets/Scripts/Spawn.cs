@@ -96,6 +96,7 @@ public class Spawn : MonoBehaviour
             currBall.transform.localPosition = Vector3.zero; // teleporting ball to pool's position
             currBallController = currBall.GetComponent<BallController>();
             currBallController.scoreController = scoreController;
+			currBallController.audioG = GetComponent<AudioSource>();
             balls[i] = currBallController;
             // used to kill itself here. now does it after a while
         }
