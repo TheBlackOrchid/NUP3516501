@@ -156,6 +156,13 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
     public void onSkippableVideoFinished()
     {
         print("Skippable Video finished");
+        videoAdCount++;
+        stateMachine.Continue();
+        if (videoAdCount >= maxViedoAds)
+        {
+            continueButton.interactable = false;
+            tooltip.SetActive(false);
+        }
     }
 
     #endregion
@@ -185,6 +192,13 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
     public void onNonSkippableVideoFinished()
     {
         print("NonSkippable Video finished");
+        videoAdCount++;
+        stateMachine.Continue();
+        if (videoAdCount >= maxViedoAds)
+        {
+            continueButton.interactable = false;
+            tooltip.SetActive(false);
+        }
     }
 
     #endregion
@@ -218,7 +232,7 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 
     public void onRewardedVideoFinished(int amount, string name)
     {
-        //print("Rewarded Video Reward: " + amount + " " + name);
+        print("Rewarded Video Reward: " + amount + " " + name);
         videoAdCount++;
         stateMachine.Continue();
         if (videoAdCount >= maxViedoAds)
