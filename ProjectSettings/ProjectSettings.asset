@@ -452,7 +452,7 @@ PlayerSettings:
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
   additionalIl2CppArgs::additionalIl2CppArgs: 
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: 47af9a41-a316-4fe8-8717-d3179526e51a
+  projectName: Stick
+  organizationId: theblackorchid
   cloudEnabled: 0
