@@ -1143,9 +1143,6 @@ MonoBehaviour:
   stateMachine: {fileID: 1104851066}
   continueButton: {fileID: 1944841833}
   tooltip: {fileID: 849288251}
-  logging: 1
-  testing: 0
-  confirm: 1
   zoneId: rewardedVideo
   maxViedoAds: 3
 --- !u!82 &1104851070

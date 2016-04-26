@@ -38,7 +38,7 @@ public class StateMachine : MonoBehaviour
         animationTimeWFS = new WaitForSeconds(animationController.animationTime);
         splashScreeWFS = new WaitForSeconds(animationController.splashScreenDuration);
         NextState();
-        adController.Init();
+        //adController.Init();
         iabController.Init();
     }
 
