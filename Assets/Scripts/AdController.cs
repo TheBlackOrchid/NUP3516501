@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+
+//using UnityEditor.Callbacks;
+using GoogleMobileAds.Api;
+using UnityEngine.Advertisements;
 
 public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdListener, ISkippableVideoAdListener, IRewardedVideoAdListener
 {
@@ -12,8 +17,10 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
     public bool logging;
     public bool testing;
     public bool confirm = true;
+    public string zoneId = "rewardedVideo";
     public int maxViedoAds = 3;
 
+    private BannerView banner;
     private int videoAdCount;
 
 
@@ -24,6 +31,31 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
     #elif UNITY_ANDROID
     string appKey = "7d92eb14a6f22da4e8931afe1659b8cb5115b6b77629e6d4"; 
     #endif
+
+    void Start()
+    {
+        banner = RequesBanner();
+    }
+
+    private BannerView RequesBanner()
+    {
+        #if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-8810835231774698/5594118762";
+        #else
+        string adUnitId = "unexpected_platform";
+        #endif
+
+        BannerView banner = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+        AdRequest request = new AdRequest.Builder()
+                            //.AddTestDevice(AdRequest.TestDeviceSimulator)
+                            //.AddTestDevice("94B6F3B031BFB085513365B02FBBB6DE")
+                            //.AddTestDevice("09970ED4E5B9A61393ED38E4E163783C")
+        .Build();
+
+        // Load the interstitial with the request.
+        banner.LoadAd(request);
+        return banner;
+    }
 
     public void Init()
     {
@@ -60,12 +92,41 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 
     public void showRewardedVideo()
     {
-        Appodeal.show(Appodeal.REWARDED_VIDEO, "rewarded_video");
+        //Appodeal.show(Appodeal.REWARDED_VIDEO, "rewarded_video");
+        if (Advertisement.IsReady(zoneId))
+        {
+            var options = new ShowOptions { resultCallback = HandleShowResult };
+            Advertisement.Show(zoneId, options);
+        }
+    }
+
+    private void HandleShowResult(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Finished:
+                Debug.Log("The ad was successfully shown.");
+                videoAdCount++;
+                stateMachine.Continue();
+                if (videoAdCount >= maxViedoAds)
+                {
+                    continueButton.interactable = false;
+                    tooltip.SetActive(false);
+                }
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("The ad was skipped before reaching the end.");
+                break;
+            case ShowResult.Failed:
+                Debug.LogError("The ad failed to be shown.");
+                break;
+        }
     }
 
     public void showBanner()
     {
-        Appodeal.show(Appodeal.BANNER_BOTTOM, "bottom_banner");
+        //Appodeal.show(Appodeal.BANNER_BOTTOM, "bottom_banner");
+        banner.Show();
     }
 
     public void showInterstitialOrVideo()
@@ -75,7 +136,8 @@ public class AdController : MonoBehaviour, IInterstitialAdListener, IBannerAdLis
 
     public void hideBanner()
     {
-        Appodeal.hide(Appodeal.BANNER);
+        //Appodeal.hide(Appodeal.BANNER);
+        banner.Hide();
     }
 
     #region Banner callback handlers
