@@ -46,7 +46,7 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
 #endif
 
         BannerView banner = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
-        banner.OnAdLoaded += HandleOnAdLoaded;
+        //banner.OnAdLoaded += HandleOnAdLoaded;
         AdRequest request = new AdRequest.Builder()
         //.AddTestDevice(AdRequest.TestDeviceSimulator)
         //.AddTestDevice("94B6F3B031BFB085513365B02FBBB6DE")
@@ -58,10 +58,10 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
         return banner;
     }
 
-    void HandleOnAdLoaded(object sender, EventArgs args)
-    {
-        banner.Show();
-    }
+    //void HandleOnAdLoaded(object sender, EventArgs args)
+    //{
+    //    banner.Show();
+    //}
 
     //public void Init()
     //{
