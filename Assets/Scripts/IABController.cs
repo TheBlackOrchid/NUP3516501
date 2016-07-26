@@ -143,7 +143,7 @@ public class IABController : MonoBehaviour
 
     private void purchaseSucceededEvent(Purchase purchase)
     {
-        stateMachine.DisableAds();
+        //stateMachine.DisableAds();
         Debug.Log("purchaseSucceededEvent: " + purchase);
         _label = "PURCHASED:" + purchase.ToString();
     }

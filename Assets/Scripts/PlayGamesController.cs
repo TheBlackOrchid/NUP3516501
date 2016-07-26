@@ -7,6 +7,7 @@ using UnityEngine.SocialPlatforms;
 public class PlayGamesController : MonoBehaviour
 {
     public bool pauseOnLogin;
+    public bool NoGPGMode;
 
     public int best { get; set; }
 
@@ -36,8 +37,11 @@ public class PlayGamesController : MonoBehaviour
     {
         if (best == -1)
         {
-            if (!lb.loading)
-                GetBestScore(lb);
+            if (!NoGPGMode)
+            {
+                if (!lb.loading)
+                    GetBestScore(lb);
+            }
         }
     }
 
@@ -64,6 +68,7 @@ public class PlayGamesController : MonoBehaviour
                 // handle success or failure
                 if (success)
                 {
+                    NoGPGMode = false;
                     if (pauseOnLogin)
                         Time.timeScale = 1;
                     GetBestScore(lb);
@@ -71,11 +76,12 @@ public class PlayGamesController : MonoBehaviour
                 }
                 else
                 {
+                    NoGPGMode = true;
                     #if UNITY_EDITOR
                     if (pauseOnLogin)
                         Time.timeScale = 1;
                     #elif UNITY_ANDROID
-                    SignIn();
+                    //SignIn();
                     #endif
                     Debug.Log("Log in failed!");
                 }
@@ -85,10 +91,13 @@ public class PlayGamesController : MonoBehaviour
     public void SubmitScore(int score)
     {
         // post score 12345 to leaderboard ID "Cfji293fjsie_QA")
-        Social.ReportScore(score, Constants.leaderboard_stick_top_players, (bool success) =>
-            {
-                // handle success or failure
-            });
+        if (!NoGPGMode)
+        {
+            Social.ReportScore(score, Constants.leaderboard_stick_top_players, (bool success) =>
+                {
+                    // handle success or failure
+                });
+        }
     }
 
     public void GetBestScore(ILeaderboard lb)
@@ -117,7 +126,10 @@ public class PlayGamesController : MonoBehaviour
     public void ShowLeaderboardUI()
     {
         // show leaderboard UI
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(Constants.leaderboard_stick_top_players);
+        if (!NoGPGMode)
+        {
+            PlayGamesPlatform.Instance.ShowLeaderboardUI(Constants.leaderboard_stick_top_players);
+        }
     }
 
 }

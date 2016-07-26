@@ -16,16 +16,16 @@ public class StateMachine : MonoBehaviour
 
     public Spawn spawn;
     public ScoreController scoreController;
-    public AdController adController;
+    //public AdController adController;
     public InputHandler inputHandler;
     public PlayGamesController playGamesController;
     public AnimationController animationController;
-    public IABController iabController;
+    //public IABController iabController;
     public AudioManager audioManager;
     public AudioSource splashAudio;
     public AudioSource bgAudio;
     public Button catcher;
-    public Button noAdsButton;
+    //public Button noAdsButton;
     public States state;
     public bool needTutorial;
 
@@ -39,7 +39,7 @@ public class StateMachine : MonoBehaviour
         splashScreeWFS = new WaitForSeconds(animationController.splashScreenDuration);
         NextState();
         //adController.Init();
-        iabController.Init();
+//        iabController.Init();
     }
 
     [ContextMenu("Next State")]
@@ -105,11 +105,11 @@ public class StateMachine : MonoBehaviour
             currCoroutine = StartCoroutine(GameOverToGame());
     }
 
-    public void DisableAds()
-    {
-        noAdsButton.interactable = false;
-        adController.hideBanner();
-    }
+    //    public void DisableAds()
+    //    {
+    //        noAdsButton.interactable = false;
+    //        adController.hideBanner();
+    //    }
 
     IEnumerator StartToMenu()
     {
@@ -122,18 +122,18 @@ public class StateMachine : MonoBehaviour
         inputHandler.canReadInput = false;
         splashAudio.Stop();
         bgAudio.Play();
-        iabController.QueryInventory();
+        //iabController.QueryInventory();
         yield return animationTimeWFS;
         state = States.Menu;
         needTutorial = playGamesController.best <= 2;
-        if (!iabController.CheckNoAds())
-        {
-            adController.showBanner();
-        }
-        else
-        {
-            noAdsButton.interactable = false;
-        }
+//        if (!iabController.CheckNoAds())
+//        {
+//            adController.showBanner();
+//        }
+//        else
+//        {
+//            noAdsButton.interactable = false;
+//        }
         currCoroutine = null;
         // splash scree off, menu on animations
     }
