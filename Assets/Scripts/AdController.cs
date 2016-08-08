@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
 //using AppodealAds.Unity.Api;
 //using AppodealAds.Unity.Common;
 
@@ -29,7 +30,7 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
 
 
     //#elif UNITY_ANDROID
-    //string appKey = "7d92eb14a6f22da4e8931afe1659b8cb5115b6b77629e6d4"; 
+    //string appKey = "7d92eb14a6f22da4e8931afe1659b8cb5115b6b77629e6d4";
     //#endif
 
     void Start()
@@ -48,9 +49,9 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
         BannerView banner = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
         //banner.OnAdLoaded += HandleOnAdLoaded;
         AdRequest request = new AdRequest.Builder()
-        //.AddTestDevice(AdRequest.TestDeviceSimulator)
-        //.AddTestDevice("94B6F3B031BFB085513365B02FBBB6DE")
-        //.AddTestDevice("09970ED4E5B9A61393ED38E4E163783C")
+                            //.AddTestDevice(AdRequest.TestDeviceSimulator)
+                            //.AddTestDevice("94B6F3B031BFB085513365B02FBBB6DE")
+                            //.AddTestDevice("09970ED4E5B9A61393ED38E4E163783C")
         .Build();
 
         // Load the interstitial with the request.
@@ -72,7 +73,7 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
     //.setSmoking(UserSettings.Smoking.NEUTRAL).setEmail("hi@appodeal.com").setFacebookId("0987654321")
     //.setVkId("87654321").setGender(UserSettings.Gender.OTHER).setRelation(UserSettings.Relation.DATING)
     //.setInterests("gym, cars, cinema, science").setOccupation(UserSettings.Occupation.WORK);
-    //*/  
+    //*/
 
     //    Appodeal.setLogging(logging);
     //    Appodeal.setTesting(testing);
@@ -96,38 +97,38 @@ public class AdController : MonoBehaviour//, IInterstitialAdListener, IBannerAdL
     //    Appodeal.show(Appodeal.SKIPPABLE_VIDEO, "custom_placement");
     //}
 
-    public void showRewardedVideo()
-    {
-        //Appodeal.show(Appodeal.REWARDED_VIDEO, "rewarded_video");
-        if (Advertisement.IsReady(zoneId))
-        {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show(zoneId, options);
-        }
-    }
-
-    private void HandleShowResult(ShowResult result)
-    {
-        switch (result)
-        {
-            case ShowResult.Finished:
-                Debug.Log("The ad was successfully shown.");
-                videoAdCount++;
-                stateMachine.Continue();
-                if (videoAdCount >= maxViedoAds)
-                {
-                    continueButton.interactable = false;
-                    tooltip.SetActive(false);
-                }
-                break;
-            case ShowResult.Skipped:
-                Debug.Log("The ad was skipped before reaching the end.");
-                break;
-            case ShowResult.Failed:
-                Debug.LogError("The ad failed to be shown.");
-                break;
-        }
-    }
+    //    public void showRewardedVideo()
+    //    {
+    //        //Appodeal.show(Appodeal.REWARDED_VIDEO, "rewarded_video");
+    //        if (Advertisement.IsReady(zoneId))
+    //        {
+    //            var options = new ShowOptions { resultCallback = HandleShowResult };
+    //            Advertisement.Show(zoneId, options);
+    //        }
+    //    }
+    //
+    //    private void HandleShowResult(ShowResult result)
+    //    {
+    //        switch (result)
+    //        {
+    //            case ShowResult.Finished:
+    //                Debug.Log("The ad was successfully shown.");
+    //                videoAdCount++;
+    //                stateMachine.Continue();
+    //                if (videoAdCount >= maxViedoAds)
+    //                {
+    //                    continueButton.interactable = false;
+    //                    tooltip.SetActive(false);
+    //                }
+    //                break;
+    //            case ShowResult.Skipped:
+    //                Debug.Log("The ad was skipped before reaching the end.");
+    //                break;
+    //            case ShowResult.Failed:
+    //                Debug.LogError("The ad failed to be shown.");
+    //                break;
+    //        }
+    //    }
 
     public void showBanner()
     {
