@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: 
-  format: 'I scored {0}. See if you can beat me in #Stick ! \n \n https://play.google.com/store/apps/details?id=com.theblackorchid.stick&pcampaignid=GPG_shareGame'
+  format: 'I scored {0}. See if you can beat me in #Stick ! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.stick&pcampaignid=GPG_shareGame'
 --- !u!1 &47098317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,8 +1383,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 800, y: 500}
+  m_AnchoredPosition: {x: 0, y: -80}
+  m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &530075018
 MonoBehaviour:
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3529412}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1595,12 +1595,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
-    m_Right: 50
+    m_Left: 20
+    m_Right: 20
     m_Top: 50
     m_Bottom: 50
   m_ChildAlignment: 0
-  m_Spacing: 50
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
 --- !u!1 &769332098
@@ -3055,12 +3055,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 50
-    m_Right: 50
+    m_Left: 20
+    m_Right: 20
     m_Top: 50
     m_Bottom: 50
   m_ChildAlignment: 0
-  m_Spacing: 50
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
 --- !u!1 &1781878107
@@ -3356,7 +3356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: '#Stick is pretty cool. Check it out on Google Play. See if you can beat my
-    score! \n \n https://play.google.com/store/apps/details?id=com.theblackorchid.stick&pcampaignid=GPG_shareGame'
+    score! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.stick&pcampaignid=GPG_shareGame'
   format: 
 --- !u!95 &1943799348
 Animator:
