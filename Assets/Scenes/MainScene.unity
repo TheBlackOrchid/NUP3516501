@@ -3531,6 +3531,10 @@ Prefab:
       propertyPath: scoreController
       value: 
       objectReference: {fileID: 1104851063}
+    - target: {fileID: 11415898, guid: b53c6a55ad28e5748ab718cea0ce1459, type: 2}
+      propertyPath: poolSize
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b53c6a55ad28e5748ab718cea0ce1459, type: 2}
   m_IsPrefabParent: 0
