@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: 
-  format: 'I scored {0}. See if you can beat me in #Stick ! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.stick&pcampaignid=GPG_shareGame'
+  format: 'I scored {0}. See if you can beat me in #LOB ! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.lob'
 --- !u!1 &47098317
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 1b36aef567a30bb48b1d9c30d039c948, type: 3}
+    m_Font: {fileID: 12800000, guid: a8080f23cb512e34387ff9b7d08c97c8, type: 3}
     m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
@@ -1555,7 +1555,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: a8080f23cb512e34387ff9b7d08c97c8, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -2108,7 +2108,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 1b36aef567a30bb48b1d9c30d039c948, type: 3}
+    m_Font: {fileID: 12800000, guid: fcc32a72945a46c47a3a2ffff87b39a2, type: 3}
     m_FontSize: 85
     m_FontStyle: 0
     m_BestFit: 1
@@ -2707,7 +2707,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 1b36aef567a30bb48b1d9c30d039c948, type: 3}
+    m_Font: {fileID: 12800000, guid: a8080f23cb512e34387ff9b7d08c97c8, type: 3}
     m_FontSize: 62
     m_FontStyle: 0
     m_BestFit: 0
@@ -3086,7 +3086,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 1b36aef567a30bb48b1d9c30d039c948, type: 3}
+    m_Font: {fileID: 12800000, guid: fcc32a72945a46c47a3a2ffff87b39a2, type: 3}
     m_FontSize: 115
     m_FontStyle: 0
     m_BestFit: 0
@@ -3098,7 +3098,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: STICK
+  m_Text: LOB
 --- !u!222 &1600609192
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3467,8 +3467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ad5b421eafc494db029db9e2c06fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: '#Stick is pretty cool. Check it out on Google Play. See if you can beat my
-    score! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.stick&pcampaignid=GPG_shareGame'
+  text: '#LOB is pretty cool. Check it out on Google Play. See if you can beat my
+    score! \n \n https://play.google.com/store/apps/details?id=com.azinecllc.lob'
   format: 
 --- !u!95 &1943799348
 Animator:
