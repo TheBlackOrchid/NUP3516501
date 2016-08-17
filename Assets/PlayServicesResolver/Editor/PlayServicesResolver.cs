@@ -118,9 +118,9 @@ namespace GooglePlayServices
                 return;
             }
 
-            Resolver.DoResolution(svcSupport,
-                "Assets/Plugins/Android",
-                HandleOverwriteConfirmation);
+            //Resolver.DoResolution(svcSupport,
+            //    "Assets/Plugins/Android",
+            //    HandleOverwriteConfirmation);
 
             AssetDatabase.Refresh();
             Debug.Log("Android Jar Dependencies: Resolution Complete");
