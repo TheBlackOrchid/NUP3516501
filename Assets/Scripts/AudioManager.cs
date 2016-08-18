@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
+    public Sprite onGfx;
+    public Sprite offGfx;
+
     public AudioMixerSnapshot defaultSnapshot;
     public AudioMixerSnapshot musicOffSnapshot;
     public AudioMixerSnapshot gameOverSnapshot;
@@ -23,6 +26,7 @@ public class AudioManager : MonoBehaviour
         {
             musicOffSnapshot.TransitionTo(transitionTime);
             musicState = false;
+
         }
         else
         {
@@ -42,15 +46,21 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void ChangeImageColor(GameObject obj)
+    public void ChangeImageColor(SoundButtonsHolder buttons)
     {
         if (!musicState) // if on, then turn off
         {
-            obj.GetComponent<Image>().color = new Color(200f / 255, 200f / 255, 200f / 255, 128f / 255);
+            foreach (GameObject b in buttons.soundButtons)
+            {
+                b.GetComponent<Image>().sprite = offGfx;
+            }
         }
         else // else turn on
         {
-            obj.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+            foreach (GameObject b in buttons.soundButtons)
+            {
+                b.GetComponent<Image>().sprite = onGfx;
+            }
         }
     }
 }

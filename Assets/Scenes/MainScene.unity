@@ -500,6 +500,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1104851071}
+        m_MethodName: ChangeImageColor
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1104851069}
+          m_ObjectArgumentAssemblyTypeName: SoundButtonsHolder, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &108207655
@@ -2175,6 +2186,7 @@ GameObject:
   - 114: {fileID: 1104851064}
   - 114: {fileID: 1104851071}
   - 82: {fileID: 1104851070}
+  - 114: {fileID: 1104851069}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: GameManager
@@ -2332,6 +2344,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyImage: {fileID: 2800000, guid: e05017fd82944d0479c11febae43771d, type: 3}
+--- !u!114 &1104851069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1104851059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51528441a71df74ea4f01c912fbabdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundButtons:
+  - {fileID: 1781878107}
+  - {fileID: 108207652}
 --- !u!82 &1104851070
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2418,6 +2444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6498375e194fc47a127ebac7b08e35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGfx: {fileID: 21300000, guid: ae355690e1e8f8448b4b439ab8c88578, type: 3}
+  offGfx: {fileID: 21300000, guid: f1f13f44717d11b4691d46b3aa952c42, type: 3}
   defaultSnapshot: {fileID: 24569418, guid: 8c6d2355849a2a44d9add4da18eb55a5, type: 2}
   musicOffSnapshot: {fileID: 24500003, guid: 8c6d2355849a2a44d9add4da18eb55a5, type: 2}
   gameOverSnapshot: {fileID: 24511286, guid: 8c6d2355849a2a44d9add4da18eb55a5, type: 2}
@@ -3255,6 +3283,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1104851071}
+        m_MethodName: ChangeImageColor
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1104851069}
+          m_ObjectArgumentAssemblyTypeName: SoundButtonsHolder, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
